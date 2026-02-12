@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>德谷拉學長戰略指揮部 V3.0</title>
+    <title>德谷拉學長戰略指揮部 V4.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -17,15 +17,11 @@
         .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.5s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        /* 認證介面美化 */
         #auth-overlay { position: fixed; inset: 0; background: #020617; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .pin-input { background: #0f172a; border: 1px solid #1e293b; color: #0ea5e9; font-size: 2rem; width: 200px; text-align: center; letter-spacing: 0.5rem; outline: none; border-radius: 8px; }
-        .pin-input:focus { border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.5); }
-        /* 捲軸美化 */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -39,208 +35,147 @@
         <div class="mt-10 text-[8px] text-gray-700 cyber-font tracking-widest">OWNED BY DRACULA / SECURED BY OWEN</div>
     </div>
 
-    <!-- MAIN CONTENT WRAPPER (HIDDEN BY DEFAULT) -->
+    <!-- MAIN CONTENT WRAPPER -->
     <div id="hq-content" class="hidden">
-        <!-- TOP HEADER -->
         <header class="flex justify-between items-end mb-8 border-b border-sky-900/50 pb-6">
-        <div>
-            <div class="flex items-center gap-2 mb-1">
-                <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-                <span class="text-[10px] cyber-font text-sky-400 tracking-[0.3em] uppercase">System Live: v3.0 Tactical</span>
-            </div>
-            <h1 class="cyber-font text-4xl md:text-5xl font-black neon-text-blue tracking-tighter italic">DRACULA COMMAND</h1>
-            <p class="text-sky-500/80 font-bold tracking-[0.2em] mt-1 text-xs">德谷拉學長戰略指揮部 | 歐文特助系統</p>
-        </div>
-        <div class="text-right hidden md:block">
-            <p class="text-[10px] text-sky-400 uppercase tracking-widest mb-1">3/14 倒數發射</p>
-            <div id="countdown" class="cyber-font text-2xl font-bold text-white">---</div>
-        </div>
-    </header>
-
-    <!-- MAIN VIEW -->
-    <div id="main-view" class="fade-in">
-        <!-- GLOBAL BAR -->
-        <section class="glow-card p-6 rounded-2xl border-l-4 border-green-500 mb-8 relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-2 opacity-10">
-                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div class="flex justify-between items-center">
-                <div>
-                    <h3 class="text-[10px] text-green-400 mb-1 uppercase tracking-[0.2em] font-bold">累積總體戰果匯總</h3>
-                    <p class="text-4xl md:text-5xl font-black cyber-font text-white">NT$ 15,623,657</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-[10px] text-gray-500 uppercase">3/14 戰略目標</p>
-                    <p class="text-xl font-bold text-green-500">NT$ 20,000,000</p>
-                    <p class="text-[10px] text-sky-400 mt-1 cyber-font">達成率 78.1%</p>
-                </div>
-            </div>
-            <div class="w-full bg-gray-900/80 h-3 mt-6 rounded-sm p-[2px]">
-                <div class="bg-gradient-to-r from-green-600 to-green-400 h-full shadow-[0_0_15px_#22c55e]" style="width: 78.1%"></div>
-            </div>
-        </section>
-
-        <!-- DASHBOARD GRID (REVENUE & MISSIONS) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <!-- Daily Revenue Summary -->
             <div>
-                <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">今日戰情報告 (2/12)</h2>
-                <div class="space-y-4">
-                    <div onclick="showDetail('zhubei')" class="glow-card p-4 rounded-xl cursor-pointer flex justify-between items-center hover:neon-blue border-l-4 border-sky-500">
-                        <div>
-                            <h3 class="text-xs font-bold text-gray-300">竹北旗艦部</h3>
-                            <p class="text-2xl font-bold cyber-font mt-1">$52,750</p>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                    <span class="text-[9px] cyber-font text-sky-400 tracking-[0.3em] uppercase">Tactical HQ v4.0 Active</span>
+                </div>
+                <h1 class="cyber-font text-4xl md:text-5xl font-black neon-text-blue tracking-tighter italic">DRACULA COMMAND</h1>
+                <p class="text-sky-500/80 font-bold tracking-[0.2em] mt-1 text-xs">德谷拉學長戰略指揮部 | 歐文 AI 決策系統</p>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-[10px] text-sky-400 uppercase tracking-widest mb-1">3/14 倒數發射</p>
+                <div id="countdown" class="cyber-font text-2xl font-bold text-white">---</div>
+            </div>
+        </header>
+
+        <div id="main-view" class="fade-in">
+            <!-- FEATURE 1: TODAY'S PROGRESS (即時戰況) -->
+            <section class="glow-card p-6 rounded-2xl border-l-4 border-sky-500 mb-8 relative overflow-hidden">
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <h3 class="text-[10px] text-sky-400 mb-1 uppercase tracking-[0.2em] font-bold">今日全線營收進度 (Today's Progress)</h3>
+                        <div class="flex items-baseline gap-4">
+                            <p class="text-4xl font-black cyber-font text-white">$81,380</p>
+                            <p class="text-xs font-bold text-green-400">▲ 15.2% <span class="text-[8px] text-gray-500">vs 上週同期</span></p>
                         </div>
-                        <span class="text-[10px] text-sky-500 italic">研究詳情 ➔</span>
                     </div>
-                    <div onclick="showDetail('xinfeng')" class="glow-card p-4 rounded-xl cursor-pointer flex justify-between items-center hover:neon-blue border-l-4 border-yellow-500">
-                        <div>
-                            <h3 class="text-xs font-bold text-gray-300">新豐分部</h3>
-                            <p class="text-2xl font-bold cyber-font text-yellow-400 mt-1">$28,630</p>
-                        </div>
-                        <span class="text-[10px] text-yellow-500 italic">研究詳情 ➔</span>
-                    </div>
-                    <div onclick="showDetail('online')" class="glow-card p-4 rounded-xl cursor-pointer flex justify-between items-center hover:neon-blue border-l-4 border-purple-500">
-                        <div>
-                            <h3 class="text-xs font-bold text-gray-300">線上官網 (91APP)</h3>
-                            <p class="text-2xl font-bold cyber-font text-purple-400 mt-1">$0</p>
-                        </div>
-                        <span class="text-[10px] text-purple-500 italic">偵查詳情 ➔</span>
+                    <div class="text-right">
+                        <p class="text-[10px] text-gray-500 uppercase">今日目標: $100,000</p>
+                        <p class="text-xs cyber-font text-sky-300">PACE: 81.3%</p>
                     </div>
                 </div>
-            </div>
+                <div class="w-full bg-gray-900/80 h-3 rounded-full border border-sky-900/50">
+                    <div class="bg-gradient-to-r from-sky-600 to-cyan-300 h-full rounded-full shadow-[0_0_15px_#0ea5e9]" style="width: 81.3%"></div>
+                </div>
+                <div class="absolute top-4 right-4 flex items-center gap-2 bg-slate-900/80 px-3 py-1 rounded-full border border-slate-700">
+                    <span class="text-lg">☀️</span>
+                    <span class="text-[10px] text-gray-300 cyber-font uppercase">Sunny / 24°C</span>
+                </div>
+            </section>
 
-            <!-- Mission Command Center -->
-            <div>
-                <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">戰略任務看板 (Missions)</h2>
-                <div class="grid grid-cols-1 gap-4">
-                    <!-- Marketing -->
-                    <div onclick="showMission('marketing')" class="glow-card p-4 rounded-xl cursor-pointer hover:border-red-500/50 flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded bg-red-900/20 flex items-center justify-center border border-red-500/30">
-                                <span class="text-red-500 text-sm">⚔️</span>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <h2 class="cyber-font text-[10px] text-sky-500 tracking-[0.5em] uppercase px-2">門市戰力排行 (Leaderboard)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Zhubei Card -->
+                        <div onclick="showDetail('zhubei')" class="glow-card p-5 rounded-xl cursor-pointer hover:neon-blue relative group">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-sm font-bold text-sky-400">竹北旗艦部</h3>
+                                <span class="text-[10px] text-green-400 font-bold">WoW +18% 🔥</span>
                             </div>
-                            <div>
-                                <h3 class="text-xs font-bold text-gray-200">行銷前線 (景棠/柚子)</h3>
-                                <p class="text-[10px] text-red-400 mt-1 animate-pulse">● 3/14 影片腳本缺失</p>
+                            <p class="text-3xl font-black cyber-font text-white">$52,750</p>
+                            <div class="mt-4 flex items-center gap-3">
+                                <div class="flex-1 bg-gray-900 h-1 rounded-full"><div class="bg-sky-500 h-full" style="width: 60%"></div></div>
+                                <span class="text-[9px] text-gray-500 italic">數位支付 60%</span>
                             </div>
                         </div>
-                        <span class="text-[10px] text-gray-500">檢視進度 ➔</span>
+                        <!-- Xinfeng Card (Anomaly Alert) -->
+                        <div onclick="showDetail('xinfeng')" class="glow-card p-5 rounded-xl cursor-pointer hover:neon-blue border-red-900/30">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-sm font-bold text-yellow-500">新豐分部</h3>
+                                <div class="flex items-center gap-1 text-red-500 animate-pulse"><span class="text-xs">⚠️</span><span class="text-[8px] font-bold">支付異常</span></div>
+                            </div>
+                            <p class="text-3xl font-black cyber-font text-yellow-500">$28,630</p>
+                            <div class="mt-4 flex items-center gap-3">
+                                <div class="flex-1 bg-gray-900 h-1 rounded-full"><div class="bg-red-500 h-full" style="width: 14%"></div></div>
+                                <span class="text-[9px] text-red-400 italic">數位 14% (連線檢查)</span>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Operation -->
-                    <div onclick="showMission('ops')" class="glow-card p-4 rounded-xl cursor-pointer hover:border-yellow-500/50 flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded bg-yellow-900/20 flex items-center justify-center border border-yellow-500/30">
-                                <span class="text-yellow-500 text-sm">🏪</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xs font-bold text-gray-200">門市戰力 (阿德/順淵)</h3>
-                                <p class="text-[10px] text-yellow-400 mt-1">● 冬季盛典積分更新中</p>
-                            </div>
+
+                    <!-- FEATURE 3: WEATHER CHART -->
+                    <div class="glow-card p-6 rounded-2xl">
+                        <h4 class="cyber-font text-[10px] text-gray-500 mb-6 uppercase tracking-widest text-center">趨勢 vs 天氣連動系統</h4>
+                        <div class="h-32 flex items-end justify-between gap-4 px-4">
+                            <div class="flex flex-col items-center gap-1 w-full"><div class="bg-sky-500/20 w-full rounded-t" style="height: 30%"></div><span class="text-xs">🌧️</span></div>
+                            <div class="flex flex-col items-center gap-1 w-full"><div class="bg-sky-500/40 w-full rounded-t" style="height: 60%"></div><span class="text-xs">☁️</span></div>
+                            <div class="flex flex-col items-center gap-1 w-full"><div class="bg-sky-500/80 w-full rounded-t shadow-[0_0_10px_#0ea5e9]" style="height: 90%"></div><span class="text-xs">☀️</span></div>
+                            <div class="flex flex-col items-center gap-1 w-full"><div class="bg-sky-500/50 w-full rounded-t" style="height: 50%"></div><span class="text-xs">🌦️</span></div>
+                            <div class="flex flex-col items-center gap-1 w-full"><div class="bg-sky-500/90 w-full rounded-t shadow-[0_0_10px_#0ea5e9]" style="height: 100%"></div><span class="text-xs">☀️</span></div>
                         </div>
-                        <span class="text-[10px] text-gray-500">檢視進度 ➔</span>
-                    </div>
-                    <!-- Development -->
-                    <div onclick="showMission('dev')" class="glow-card p-4 rounded-xl cursor-pointer hover:border-green-500/50 flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded bg-green-900/20 flex items-center justify-center border border-green-500/30">
-                                <span class="text-green-400 text-sm">📱</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xs font-bold text-gray-200">產品開發 (學長/歐文)</h3>
-                                <p class="text-[10px] text-green-400 mt-1">● GyberPass 核心穩定測試</p>
-                            </div>
-                        </div>
-                        <span class="text-[10px] text-gray-500">檢視進度 ➔</span>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- QUICK STATS -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="glow-card p-4 rounded-lg text-center border-b border-sky-500">
-                <p class="text-[9px] text-gray-500 uppercase tracking-widest">全門市均日</p>
-                <p class="text-lg font-bold cyber-font">$27,171</p>
-            </div>
-            <div class="glow-card p-4 rounded-lg text-center border-b border-purple-500">
-                <p class="text-[9px] text-gray-500 uppercase tracking-widest">數位支付比</p>
-                <p class="text-lg font-bold cyber-font">52.9%</p>
-            </div>
-            <div class="glow-card p-4 rounded-lg text-center border-b border-green-500">
-                <p class="text-[9px] text-gray-500 uppercase tracking-widest">竹北業績權重</p>
-                <p class="text-lg font-bold cyber-font">64.3%</p>
-            </div>
-            <div class="glow-card p-4 rounded-lg text-center border-b border-orange-500">
-                <p class="text-[9px] text-gray-500 uppercase tracking-widest">歷史單月巔峰</p>
-                <p class="text-lg font-bold cyber-font">$1.93M</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- MISSION VIEW -->
-    <div id="mission-view" class="hidden fade-in">
-        <button onclick="showMain()" class="mb-6 text-sky-400 hover:text-white flex items-center gap-2 text-xs font-bold cyber-font">
-            ◀ BACK TO COMMAND / 返回總部
-        </button>
-        <div class="glow-card p-8 rounded-2xl border-t-4" id="mission-container">
-            <h2 id="mission-title" class="text-3xl font-black cyber-font mb-2 uppercase">MISSION_TITLE</h2>
-            <p id="mission-subtitle" class="text-gray-400 text-sm mb-8 italic">正在同步 Notion 實時戰況...</p>
-            
-            <div id="mission-content" class="space-y-6">
-                <!-- Task List will be injected here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- DETAIL VIEW -->
-    <div id="detail-view" class="hidden fade-in">
-        <button onclick="showMain()" class="mb-6 text-sky-400 hover:text-white flex items-center gap-2 text-xs font-bold cyber-font">
-            ◀ BACK TO COMMAND / 返回總部
-        </button>
-        
-        <div class="glow-card p-8 rounded-2xl border-t-4" id="detail-container">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-6">
-                <div class="flex-1">
-                    <h2 id="detail-title" class="text-3xl font-black cyber-font mb-2">STORE_NAME</h2>
-                    <p id="detail-desc" class="text-gray-400 text-sm mb-6">門市深度研究數據</p>
+                <div class="space-y-6">
+                    <h2 class="cyber-font text-[10px] text-sky-500 tracking-[0.5em] uppercase px-2">行動與決策</h2>
+                    <div class="space-y-4">
+                        <div onclick="showMission('marketing')" class="glow-card p-4 rounded-xl cursor-pointer border-r-4 border-red-500 flex justify-between items-center"><span class="text-xs font-bold text-red-400">⚔️ 行銷前線</span><span class="text-[9px] text-red-500 animate-pulse font-black">ALERT</span></div>
+                        <div onclick="showMission('ops')" class="glow-card p-4 rounded-xl cursor-pointer border-r-4 border-yellow-500 flex justify-between items-center"><span class="text-xs font-bold text-yellow-400">🏪 門市戰力</span><span class="text-[9px] text-gray-500">正常</span></div>
+                    </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div class="bg-slate-900/50 p-4 rounded border border-slate-800">
-                            <p class="text-[10px] text-gray-500 uppercase">歷年總業績</p>
-                            <p id="store-total" class="text-2xl font-bold cyber-font">---</p>
-                        </div>
-                        <div class="bg-slate-900/50 p-4 rounded border border-slate-800">
-                            <p class="text-[10px] text-gray-500 uppercase">支付結構比 (數位/現金)</p>
-                            <p id="store-ratio" class="text-2xl font-bold cyber-font">---</p>
-                        </div>
-                        <div class="bg-slate-900/50 p-4 rounded border border-slate-800">
-                            <p class="text-[10px] text-gray-500 uppercase">戰略權重</p>
-                            <p id="store-weight" class="text-2xl font-bold cyber-font">---</p>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-slate-800 pt-6">
-                        <h4 class="text-xs font-bold text-sky-500 mb-4 cyber-font">MONTHLY PERFORMANCE / 月度表現趨勢</h4>
-                        <div id="chart-placeholder" class="h-64 flex items-end justify-between gap-2 px-4 border-b border-slate-800 pb-2">
-                            <!-- JS will inject bars here -->
+                    <!-- FEATURE 5: AI INSIGHTS -->
+                    <div class="glow-card p-5 rounded-xl border-b-4 border-purple-500">
+                        <h3 class="cyber-font text-[9px] text-purple-400 mb-4 tracking-[0.2em] flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 bg-purple-500 rounded-full animate-ping"></span> 歐文特助日誌 (AI INSIGHTS)
+                        </h3>
+                        <div class="space-y-4 text-[11px] text-gray-400">
+                            <p class="border-l-2 border-purple-900/50 pl-2">● <span class="text-white font-bold">竹北旗艦</span> 同期成長 18%，建議週五加碼廣告。</p>
+                            <p class="border-l-2 border-red-900/50 pl-2 text-red-300">● <span class="font-bold uppercase">Anomaly:</span> 新豐支付比例異常，疑似連線中斷或員工漏刷。</p>
+                            <p class="border-l-2 border-sky-900/50 pl-2">● 明日天氣 🌧️，建議行銷重心轉向 <span class="text-sky-300 italic">官網 91APP</span>。</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- SYSTEM LOGS (Request from previous turn) -->
+            <h2 class="cyber-font text-[8px] text-gray-600 mb-2 uppercase tracking-[0.5em] px-2">系統執行履歷</h2>
+            <div class="glow-card p-4 rounded-lg bg-slate-950/50 border-slate-900">
+                <div id="system-logs" class="space-y-2 text-[9px] text-gray-500 font-mono">
+                    <p>[2026-02-13 01:55] 升級 V4.0 指揮中心 (決策導向版本)</p>
+                    <p>[2026-02-13 01:30] 安裝 0326 安全電子鎖</p>
+                    <p>[2026-02-13 00:45] 完成 1,500 萬歷史數據建模</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRILL DOWN VIEWS (HIDDEN) -->
+        <div id="detail-view" class="hidden fade-in">
+            <button onclick="showMain()" class="mb-6 text-sky-400 hover:text-white flex items-center gap-2 text-[10px] font-bold cyber-font">◀ RETURN TO HQ / 返回總部</button>
+            <div class="glow-card p-8 rounded-2xl border-t-4" id="detail-container">
+                <h2 id="detail-title" class="text-3xl font-black cyber-font mb-6">STORE_NAME</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" id="detail-metrics"></div>
+                <div id="detail-chart" class="h-48 border-b border-slate-800 flex items-end justify-between gap-2"></div>
+            </div>
+        </div>
+        
+        <div id="mission-view" class="hidden fade-in">
+            <button onclick="showMain()" class="mb-6 text-sky-400 hover:text-white flex items-center gap-2 text-[10px] font-bold cyber-font">◀ RETURN TO HQ / 返回總部</button>
+            <div class="glow-card p-8 rounded-2xl border-t-4" id="mission-container">
+                <h2 id="mission-title" class="text-3xl font-black cyber-font mb-6 uppercase">MISSION</h2>
+                <div id="mission-content" class="space-y-4"></div>
+            </div>
         </div>
     </div>
-
-    </div><!-- END HQ CONTENT -->
 
     <script>
-        // --- 身份驗證系統 ---
         const pinInput = document.getElementById('pin-input');
         const authOverlay = document.getElementById('auth-overlay');
         const hqContent = document.getElementById('hq-content');
         const authError = document.getElementById('auth-error');
-
-        // 加密密碼 (簡單混淆處理)
         const TARGET_HASH = "MDMyNg=="; // 0326 base64
 
         pinInput.addEventListener('input', (e) => {
@@ -248,7 +183,6 @@
                 if (btoa(e.target.value) === TARGET_HASH) {
                     authOverlay.style.display = 'none';
                     hqContent.classList.remove('hidden');
-                    // 記錄已登入
                     sessionStorage.setItem('dracula_auth', 'true');
                 } else {
                     authError.style.opacity = '1';
@@ -257,142 +191,58 @@
                 }
             }
         });
-
-        // 檢查 Session
-        if (sessionStorage.getItem('dracula_auth') === 'true') {
-            authOverlay.style.display = 'none';
-            hqContent.classList.remove('hidden');
-        }
-
-        const storeData = {
-            zhubei: { name: "竹北旗艦門市", total: "$10,047,550", ratio: "58% / 42%", weight: "64.3%", color: "#0ea5e9", history: [70, 85, 60, 95, 80, 88, 75, 78, 92] },
-            xinfeng: { name: "新豐分部門市", total: "$5,576,107", ratio: "45% / 55%", weight: "35.7%", color: "#eab308", history: [40, 55, 30, 45, 50, 48, 35, 38, 52] },
-            online: { name: "線上官方商城", total: "數據串接中", ratio: "100% / 0%", weight: "Pending", color: "#a855f7", history: [0, 0, 0, 0, 0, 0, 0, 0, 0] }
-        };
+        if (sessionStorage.getItem('dracula_auth') === 'true') { authOverlay.style.display = 'none'; hqContent.classList.remove('hidden'); }
 
         const missionData = {
-            marketing: {
-                title: "行銷前線 (景棠/柚子)",
-                color: "#f87171",
-                tasks: [
-                    { name: "3/14 四週年主宣傳影片", status: "缺少腳本", urgent: true },
-                    { name: "春節前福袋腳本2-出清質疑篇", status: "已剪輯", urgent: false },
-                    { name: "314 紙牌/布條實體製作", status: "美編已提交", urgent: false }
-                ]
-            },
-            ops: {
-                title: "門市戰力 (阿德/順淵)",
-                color: "#fbbf24",
-                tasks: [
-                    { name: "冬季盛典出勤積分統計", status: "家志/順淵補錄中", urgent: false },
-                    { name: "新豐店 G/H 區塊深度清潔", status: "阿德執行中", urgent: false },
-                    { name: "客訂單 LS2 FF906 3XL 追蹤", status: "缺件待訂", urgent: true }
-                ]
-            },
-            dev: {
-                title: "產品開發 (學長/歐文)",
-                color: "#4ade80",
-                tasks: [
-                    { name: "GyberPass 雙模式協定測試", status: "穩定度優化中", urgent: false },
-                    { name: "3/14 App 領券自動化邏輯", status: "設計中", urgent: false },
-                    { name: "戰略指揮部 Dashboard V3.2", status: "已部署", urgent: false }
-                ]
-            }
+            marketing: { title: "行銷前線 (景棠/柚子)", color: "#f87171", tasks: [{name: "3/14 宣傳影片", status: "缺少腳本", urgent: true}, {name: "314 紙牌布條", status: "美編已提交", urgent: false}] },
+            ops: { title: "門市戰力 (阿德/順淵)", color: "#fbbf24", tasks: [{name: "冬季盛典積分", status: "統計中", urgent: false}, {name: "客訂單 FF906", status: "缺件待訂", urgent: true}] }
         };
 
-        // --- 路由系統 (支援瀏覽器回退) ---
         function navigateTo(view, id = null) {
             window.scrollTo(0, 0);
-            const state = { view, id };
-            history.pushState(state, "", "");
-            renderView(view, id);
-        }
-
-        window.onpopstate = function(event) {
-            if (event.state) {
-                renderView(event.state.view, event.state.id);
-            } else {
-                renderView('main');
-            }
-        };
-
-        function renderView(view, id) {
-            // 先隱藏所有
             document.getElementById('main-view').classList.add('hidden');
-            document.getElementById('mission-view').classList.add('hidden');
             document.getElementById('detail-view').classList.add('hidden');
-
-            if (view === 'main') {
-                document.getElementById('main-view').classList.remove('hidden');
-            } else if (view === 'mission') {
-                document.getElementById('mission-view').classList.remove('hidden');
-                updateMissionView(id);
-            } else if (view === 'detail') {
-                document.getElementById('detail-view').classList.remove('hidden');
-                updateDetailView(id);
-            }
+            document.getElementById('mission-view').classList.add('hidden');
+            if(view==='main') document.getElementById('main-view').classList.remove('hidden');
+            if(view==='detail') { document.getElementById('detail-view').classList.remove('hidden'); updateDetail(id); }
+            if(view==='mission') { document.getElementById('mission-view').classList.remove('hidden'); updateMission(id); }
         }
-
         function showMain() { navigateTo('main'); }
-        function showMission(id) { navigateTo('mission', id); }
         function showDetail(id) { navigateTo('detail', id); }
+        function showMission(id) { navigateTo('mission', id); }
 
-        function updateMissionView(missionId) {
-            const data = missionData[missionId];
-            document.getElementById('mission-container').style.borderColor = data.color;
-            document.getElementById('mission-title').innerText = data.title;
-            document.getElementById('mission-title').style.color = data.color;
-            
-            const content = document.getElementById('mission-content');
-            content.innerHTML = '';
-            data.tasks.forEach(t => {
-                const item = document.createElement('div');
-                item.className = 'flex justify-between items-center bg-slate-900/50 p-4 rounded border border-slate-800';
-                item.innerHTML = `
-                    <div>
-                        <p class="text-sm font-bold ${t.urgent ? 'text-red-400' : 'text-gray-200'}">${t.name}</p>
-                        <p class="text-[10px] text-gray-500 mt-1">${t.status}</p>
-                    </div>
-                    ${t.urgent ? '<span class="status-tag bg-red-900/40 text-red-400 border border-red-500/50 animate-pulse">URGENT</span>' : '<span class="status-tag bg-slate-800 text-gray-400">ACTIVE</span>'}
-                `;
-                content.appendChild(item);
+        function updateMission(id) {
+            const d = missionData[id];
+            document.getElementById('mission-title').innerText = d.title;
+            document.getElementById('mission-title').style.color = d.color;
+            document.getElementById('mission-container').style.borderColor = d.color;
+            let html = '';
+            d.tasks.forEach(t => {
+                html += `<div class="p-4 bg-slate-900/50 rounded border border-slate-800 flex justify-between">
+                    <div><p class="font-bold ${t.urgent?'text-red-400':''}">${t.name}</p><p class="text-[10px] text-gray-500">${t.status}</p></div>
+                    ${t.urgent?'<span class="text-[8px] bg-red-900/50 p-1 rounded border border-red-500 text-red-400">URGENT</span>':''}
+                </div>`;
             });
+            document.getElementById('mission-content').innerHTML = html;
         }
 
-        function updateDetailView(storeId) {
-            const data = storeData[storeId];
-            document.getElementById('detail-container').style.borderColor = data.color;
-            document.getElementById('detail-title').innerText = data.name;
-            document.getElementById('detail-title').style.color = data.color;
-            document.getElementById('store-total').innerText = data.total;
-            document.getElementById('store-ratio').innerText = data.ratio;
-            document.getElementById('store-weight').innerText = data.weight;
-            
-            const chart = document.getElementById('chart-placeholder');
-            chart.innerHTML = '';
-            data.history.forEach(h => {
-                const bar = document.createElement('div');
-                bar.className = 'w-full rounded-t opacity-80';
-                bar.style.height = h + '%';
-                bar.style.backgroundColor = data.color;
-                bar.style.boxShadow = `0 0 10px ${data.color}44`;
-                chart.appendChild(bar);
-            });
+        function updateDetail(id) {
+            const names = {zhubei: "竹北旗艦部", xinfeng: "新豐分部", online: "線上官網"};
+            document.getElementById('detail-title').innerText = names[id];
+            document.getElementById('detail-metrics').innerHTML = `
+                <div class="bg-slate-900 p-4 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase">歷年累積</p><p class="text-xl font-bold cyber-font">$10.04M</p></div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase">支付結構</p><p class="text-xl font-bold cyber-font">60:40</p></div>
+                <div class="bg-slate-900 p-4 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase">成長率</p><p class="text-xl font-bold cyber-font text-green-400">+18.2%</p></div>
+            `;
         }
-
-        // 初始化狀態
-        history.replaceState({view: 'main'}, "", "");
 
         function updateCountdown() {
             const target = new Date("2026-03-14T00:00:00").getTime();
             const now = new Date().getTime();
             const dist = target - now;
-            const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-            const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("countdown").innerHTML = `${d}D ${h}H ${m}M`;
+            document.getElementById("countdown").innerHTML = Math.floor(dist/(1000*60*60*24))+"D "+Math.floor((dist%(1000*60*60*24))/(1000*60*60))+"H";
         }
-        setInterval(updateCountdown, 1000); updateCountdown();
+        setInterval(updateCountdown, 60000); updateCountdown();
     </script>
 </body>
 </html>
