@@ -3,176 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>德谷拉學長戰略指揮部</title>
+    <title>德谷拉學長戰略指揮部 V3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #020617; color: #f8fafc; font-family: 'Noto Sans TC', sans-serif; }
+        body { background-color: #020617; color: #f8fafc; font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; }
         .cyber-font { font-family: 'Orbitron', sans-serif; }
-        .neon-blue { border: 1px solid #0ea5e9; box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); }
+        .neon-blue { border: 1px solid #0ea5e9; box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
         .neon-text-blue { color: #0ea5e9; text-shadow: 0 0 10px #0ea5e9; }
-        .status-tag { font-size: 0.6rem; padding: 2px 8px; border-radius: 9999px; text-transform: uppercase; }
-        .glow-card { background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b; backdrop-filter: blur(10px); }
+        .glow-card { background: rgba(15, 23, 42, 0.7); border: 1px solid #1e293b; backdrop-filter: blur(12px); transition: all 0.3s ease; }
+        .glow-card:hover { border-color: #38bdf8; transform: translateY(-2px); }
+        .status-tag { font-size: 0.65rem; padding: 2px 10px; border-radius: 4px; text-transform: uppercase; font-weight: bold; }
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* 捲軸美化 */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
     </style>
 </head>
-<body class="p-4 md:p-10">
-    <!-- Header -->
-    <header class="flex justify-between items-end mb-10 border-b border-sky-900 pb-6">
+<body class="p-4 md:p-8">
+
+    <!-- TOP HEADER -->
+    <header class="flex justify-between items-end mb-8 border-b border-sky-900/50 pb-6">
         <div>
-            <h1 class="cyber-font text-5xl font-black neon-text-blue tracking-tighter italic">DRACULA COMMAND</h1>
-            <p class="text-sky-500 font-bold tracking-widest mt-2">德谷拉學長戰略指揮部 v2.1 [ Notion Real-time Sync ]</p>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] cyber-font text-sky-400 tracking-[0.3em] uppercase">System Live: v3.0 Tactical</span>
+            </div>
+            <h1 class="cyber-font text-4xl md:text-5xl font-black neon-text-blue tracking-tighter italic">DRACULA COMMAND</h1>
+            <p class="text-sky-500/80 font-bold tracking-[0.2em] mt-1 text-xs">德谷拉學長戰略指揮部 | 歐文特助系統</p>
         </div>
-        <div class="text-right border-l border-sky-900 pl-6">
-            <p class="text-[10px] text-sky-400 uppercase tracking-widest mb-1">Target Date: 3/14 Launch</p>
-            <div id="countdown" class="cyber-font text-3xl font-bold text-white">---</div>
-            <p class="text-[8px] text-gray-500 mt-1 uppercase">Last Data Sync: 2026-02-12</p>
+        <div class="text-right hidden md:block">
+            <p class="text-[10px] text-sky-400 uppercase tracking-widest mb-1">3/14 倒數發射</p>
+            <div id="countdown" class="cyber-font text-2xl font-bold text-white">---</div>
         </div>
     </header>
 
-    <!-- Daily Revenue: The Big Three -->
-    <h2 class="cyber-font text-sm text-sky-500 mb-4 tracking-[0.5em] uppercase">Daily Revenue Monitor</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
-        <!-- Zhubei Flagship -->
-        <div class="glow-card p-6 rounded-2xl border-t-2 border-sky-400 neon-blue">
-            <h3 class="text-xs text-gray-400 mb-2">竹北旗艦門市</h3>
-            <p class="text-3xl font-bold cyber-font">NT$ 52,750</p>
-            <div class="mt-4 flex justify-center gap-2">
-                <span class="status-tag bg-green-900 text-green-300 border border-green-500">進攻猛烈</span>
+    <!-- MAIN VIEW -->
+    <div id="main-view" class="fade-in">
+        <!-- GLOBAL BAR -->
+        <section class="glow-card p-6 rounded-2xl border-l-4 border-green-500 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-2 opacity-10">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
-            <div class="mt-2 text-[10px] text-gray-500 flex justify-around">
-                <span>現: 31K</span><span>卡: 8K</span><span>L: 13K</span>
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-[10px] text-green-400 mb-1 uppercase tracking-[0.2em] font-bold">累積總體戰果匯總</h3>
+                    <p class="text-4xl md:text-5xl font-black cyber-font text-white">NT$ 15,623,657</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-gray-500 uppercase">3/14 戰略目標</p>
+                    <p class="text-xl font-bold text-green-500">NT$ 20,000,000</p>
+                    <p class="text-[10px] text-sky-400 mt-1 cyber-font">達成率 78.1%</p>
+                </div>
+            </div>
+            <div class="w-full bg-gray-900/80 h-3 mt-6 rounded-sm p-[2px]">
+                <div class="bg-gradient-to-r from-green-600 to-green-400 h-full shadow-[0_0_15px_#22c55e]" style="width: 78.1%"></div>
+            </div>
+        </section>
+
+        <!-- DAILY MONITOR (Simplified) -->
+        <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">今日各部戰報 (2/12)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Zhubei -->
+            <div onclick="showDetail('zhubei')" class="glow-card p-6 rounded-xl cursor-pointer hover:neon-blue">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xs font-bold text-gray-400">竹北旗艦部</h3>
+                    <span class="status-tag bg-green-500/20 text-green-400 border border-green-500/50">穩定</span>
+                </div>
+                <p class="text-3xl font-bold cyber-font">$52,750</p>
+                <p class="text-[10px] text-gray-500 mt-4 flex items-center gap-1 italic">點擊查看深度數據 ➔</p>
+            </div>
+            <!-- Xinfeng -->
+            <div onclick="showDetail('xinfeng')" class="glow-card p-6 rounded-xl cursor-pointer hover:neon-blue">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xs font-bold text-gray-400">新豐分部</h3>
+                    <span class="status-tag bg-yellow-500/20 text-yellow-400 border border-yellow-500/50">正常</span>
+                </div>
+                <p class="text-3xl font-bold cyber-font text-yellow-400">$28,630</p>
+                <p class="text-[10px] text-gray-500 mt-4 flex items-center gap-1 italic">點擊查看深度數據 ➔</p>
+            </div>
+            <!-- Online -->
+            <div onclick="showDetail('online')" class="glow-card p-6 rounded-xl cursor-pointer hover:neon-blue border-purple-900/30">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-xs font-bold text-gray-400">線上官網 (91APP)</h3>
+                    <span class="status-tag bg-purple-500/20 text-purple-400 border border-purple-500/50">偵查中</span>
+                </div>
+                <p class="text-3xl font-bold cyber-font text-purple-400">$0</p>
+                <p class="text-[10px] text-gray-500 mt-4 flex items-center gap-1 italic">點擊查看深度數據 ➔</p>
             </div>
         </div>
-        <!-- Xinfeng Store -->
-        <div class="glow-card p-6 rounded-2xl border-t-2 border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.2)]">
-            <h3 class="text-xs text-gray-400 mb-2">新豐分部門市</h3>
-            <p class="text-3xl font-bold cyber-font text-yellow-400">NT$ 28,630</p>
-            <div class="mt-4 flex justify-center gap-2">
-                <span class="status-tag bg-yellow-900 text-yellow-300 border border-yellow-500">火力穩定</span>
+
+        <!-- QUICK STATS -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="glow-card p-4 rounded-lg text-center border-b border-sky-500">
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest">全門市均日</p>
+                <p class="text-lg font-bold cyber-font">$27,171</p>
             </div>
-            <div class="mt-2 text-[10px] text-gray-500 flex justify-around">
-                <span>現: 15K</span><span>卡: 8K</span><span>L: 4K</span>
+            <div class="glow-card p-4 rounded-lg text-center border-b border-purple-500">
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest">數位支付比</p>
+                <p class="text-lg font-bold cyber-font">52.9%</p>
             </div>
-        </div>
-        <!-- Online Official Site (91APP) -->
-        <div class="glow-card p-6 rounded-2xl border-t-2 border-purple-400 shadow-[0_0_15px_rgba(192,132,252,0.2)]">
-            <h3 class="text-xs text-gray-400 mb-2">線上官方商城 (91APP)</h3>
-            <p class="text-3xl font-bold cyber-font text-purple-400">NT$ 0</p>
-            <div class="mt-4 flex justify-center gap-2">
-                <span class="status-tag bg-gray-800 text-gray-400 border border-gray-600">等待情報</span>
+            <div class="glow-card p-4 rounded-lg text-center border-b border-green-500">
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest">竹北業績權重</p>
+                <p class="text-lg font-bold cyber-font">64.3%</p>
             </div>
-            <div class="mt-2 text-[10px] text-gray-500 flex justify-around italic">
-                <span>自動偵測中...</span>
+            <div class="glow-card p-4 rounded-lg text-center border-b border-orange-500">
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest">歷史單月巔峰</p>
+                <p class="text-lg font-bold cyber-font">$1.93M</p>
             </div>
         </div>
     </div>
 
-    <!-- Overall Strategy Section -->
-    <div class="glow-card p-6 rounded-2xl border-l-4 border-green-500 mb-10">
-        <div class="flex justify-between items-center">
-            <div>
-                <h3 class="cyber-font text-xs text-green-400 mb-1 uppercase tracking-widest">Global Battle Result</h3>
-                <p class="text-4xl font-black cyber-font text-white" id="total-revenue">NT$ 15,623,657</p>
-            </div>
-            <div class="text-right">
-                <p class="text-[10px] text-gray-500 uppercase">March 14 Goal</p>
-                <p class="text-xl font-bold text-green-500">NT$ 20,000,000</p>
-            </div>
-        </div>
-        <div class="w-full bg-gray-900 h-2 mt-4 rounded-full overflow-hidden">
-            <div class="bg-green-500 h-full shadow-[0_0_10px_#22c55e]" style="width: 78.1%"></div>
-        </div>
-    </div>
+    <!-- DETAIL VIEW -->
+    <div id="detail-view" class="hidden fade-in">
+        <button onclick="showMain()" class="mb-6 text-sky-400 hover:text-white flex items-center gap-2 text-xs font-bold cyber-font">
+            ◀ BACK TO COMMAND / 返回總部
+        </button>
+        
+        <div class="glow-card p-8 rounded-2xl border-t-4" id="detail-container">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+                <div class="flex-1">
+                    <h2 id="detail-title" class="text-3xl font-black cyber-font mb-2">STORE_NAME</h2>
+                    <p id="detail-desc" class="text-gray-400 text-sm mb-6">門市深度研究數據</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-slate-900/50 p-4 rounded border border-slate-800">
+                            <p class="text-[10px] text-gray-500 uppercase">歷年總業績</p>
+                            <p id="store-total" class="text-2xl font-bold cyber-font">---</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded border border-slate-800">
+                            <p class="text-[10px] text-gray-500 uppercase">支付結構比 (數位/現金)</p>
+                            <p id="store-ratio" class="text-2xl font-bold cyber-font">---</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded border border-slate-800">
+                            <p class="text-[10px] text-gray-500 uppercase">戰略權重</p>
+                            <p id="store-weight" class="text-2xl font-bold cyber-font">---</p>
+                        </div>
+                    </div>
 
-    <!-- Historical Insight Section -->
-    <h2 class="cyber-font text-sm text-purple-500 mb-4 tracking-[0.5em] uppercase">Historical Battle Insights</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        <!-- Revenue Chart -->
-        <div class="glow-card p-5 rounded-xl border-t border-purple-900">
-            <h4 class="cyber-font text-xs text-purple-400 mb-4 uppercase">Monthly Revenue Trend</h4>
-            <div class="h-48 flex items-end justify-between gap-1 px-2">
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 62%" title="2025-05"><div class="bg-purple-500 h-full w-full rounded-t opacity-60"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 94%" title="2025-06"><div class="bg-purple-500 h-full w-full rounded-t opacity-80"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 82%" title="2025-07"><div class="bg-purple-500 h-full w-full rounded-t opacity-70"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 100%" title="2025-08"><div class="bg-purple-400 h-full w-full rounded-t shadow-[0_0_10px_#c084fc]"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 82%" title="2025-09"><div class="bg-purple-500 h-full w-full rounded-t opacity-70"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 85%" title="2025-10"><div class="bg-purple-500 h-full w-full rounded-t opacity-75"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 80%" title="2025-11"><div class="bg-purple-500 h-full w-full rounded-t opacity-70"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 80%" title="2025-12"><div class="bg-purple-500 h-full w-full rounded-t opacity-70"></div></div>
-                <div class="bg-purple-900/40 w-full rounded-t" style="height: 96%" title="2026-01"><div class="bg-purple-400 h-full w-full rounded-t opacity-90"></div></div>
-            </div>
-            <div class="flex justify-between text-[8px] text-gray-500 mt-2 cyber-font">
-                <span>MAY 2025</span><span>AUG [PEAK]</span><span>JAN 2026</span>
-            </div>
-        </div>
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-2 gap-4">
-            <div class="glow-card p-4 rounded-xl border-b-2 border-sky-500">
-                <p class="text-[10px] text-gray-500 uppercase">Avg. Daily</p>
-                <p class="text-xl font-bold cyber-font">$27.1K</p>
-            </div>
-            <div class="glow-card p-4 rounded-xl border-b-2 border-purple-500">
-                <p class="text-[10px] text-gray-500 uppercase">Best Month</p>
-                <p class="text-xl font-bold cyber-font">$1.93M</p>
-            </div>
-            <div class="glow-card p-4 rounded-xl border-b-2 border-green-500">
-                <p class="text-[10px] text-gray-500 uppercase">Zhubei Share</p>
-                <p class="text-xl font-bold cyber-font">64.3%</p>
-            </div>
-            <div class="glow-card p-4 rounded-xl border-b-2 border-yellow-500">
-                <p class="text-[10px] text-gray-500 uppercase">Digital Pay</p>
-                <p class="text-xl font-bold cyber-font">52.9%</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ad & IP Performance -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        <div class="glow-card p-5 rounded-xl border-l-4 border-sky-500">
-            <h4 class="cyber-font text-xs text-sky-400 mb-4">AD PERFORMANCE (ROAS)</h4>
-            <div class="flex items-center justify-around">
-                <div class="text-center"><p class="text-xs text-gray-500">Meta</p><p class="text-2xl font-bold">9.8</p></div>
-                <div class="h-10 w-[1px] bg-gray-800"></div>
-                <div class="text-center"><p class="text-xs text-gray-500">Google</p><p class="text-2xl font-bold">10.3</p></div>
-                <div class="h-10 w-[1px] bg-gray-800"></div>
-                <div class="text-center"><p class="text-xs text-sky-500">TOTAL</p><p class="text-3xl font-black text-sky-400">10.1</p></div>
-            </div>
-        </div>
-        <div class="glow-card p-5 rounded-xl border-l-4 border-purple-500 text-center">
-            <h4 class="cyber-font text-xs text-purple-400 mb-4">SOCIAL IP STATS</h4>
-            <div class="flex items-end justify-center gap-2">
-                <p class="text-4xl font-bold">23.6K+</p>
-                <p class="text-xs text-gray-500 mb-1">TOTAL FOLLOWERS</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Missions -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glow-card p-5 rounded-lg border-b border-sky-900">
-            <h2 class="cyber-font text-sm mb-4 text-sky-300">⚔️ 行銷企劃 (景棠/柚子)</h2>
-            <div class="text-xs space-y-3">
-                <div class="flex justify-between"><span>● 314影片腳本</span><span class="text-sky-500 italic">Owen Drafted</span></div>
-                <div class="flex justify-between text-gray-500"><span>● 飆鋒衣主視覺廣告</span><span>Pending</span></div>
-            </div>
-        </div>
-        <div class="glow-card p-5 rounded-lg border-b border-sky-900">
-            <h2 class="cyber-font text-sm mb-4 text-yellow-400">⚔️ 門市運營 (阿德/順淵)</h2>
-            <div class="text-xs space-y-3">
-                <div class="flex justify-between"><span>● 阿德戰術檢核表</span><span class="text-yellow-500 italic">Owen Deployed</span></div>
-                <div class="flex justify-between text-gray-500"><span>● 柏霖監測系統</span><span>Wait...</span></div>
-            </div>
-        </div>
-        <div class="glow-card p-5 rounded-lg border-b border-sky-900">
-            <h2 class="cyber-font text-sm mb-4 text-green-400">⚔️ 開發戰略 (學長/歐文)</h2>
-            <div class="text-xs space-y-3">
-                <div class="flex justify-between"><span>● GyberPass 核心整合</span><span class="text-green-500 italic">Crucial</span></div>
-                <div class="flex justify-between italic text-green-400 font-bold"><span>● 指揮部 V2.0 推送</span><span>COMPLETED</span></div>
+                    <div class="border-t border-slate-800 pt-6">
+                        <h4 class="text-xs font-bold text-sky-500 mb-4 cyber-font">MONTHLY PERFORMANCE / 月度表現趨勢</h4>
+                        <div id="chart-placeholder" class="h-64 flex items-end justify-between gap-2 px-4 border-b border-slate-800 pb-2">
+                            <!-- JS will inject bars here -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        const storeData = {
+            zhubei: { name: "竹北旗艦門市", total: "$10,047,550", ratio: "58% / 42%", weight: "64.3%", color: "#0ea5e9", history: [70, 85, 60, 95, 80, 88, 75, 78, 92] },
+            xinfeng: { name: "新豐分部門市", total: "$5,576,107", ratio: "45% / 55%", weight: "35.7%", color: "#eab308", history: [40, 55, 30, 45, 50, 48, 35, 38, 52] },
+            online: { name: "線上官方商城", total: "數據串接中", ratio: "100% / 0%", weight: "Pending", color: "#a855f7", history: [0, 0, 0, 0, 0, 0, 0, 0, 0] }
+        };
+
+        function showDetail(storeId) {
+            const data = storeData[storeId];
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.remove('hidden');
+            document.getElementById('detail-container').style.borderColor = data.color;
+            document.getElementById('detail-title').innerText = data.name;
+            document.getElementById('detail-title').style.color = data.color;
+            document.getElementById('store-total').innerText = data.total;
+            document.getElementById('store-ratio').innerText = data.ratio;
+            document.getElementById('store-weight').innerText = data.weight;
+            
+            // Build simple bar chart
+            const chart = document.getElementById('chart-placeholder');
+            chart.innerHTML = '';
+            data.history.forEach(h => {
+                const bar = document.createElement('div');
+                bar.className = 'w-full rounded-t opacity-80';
+                bar.style.height = h + '%';
+                bar.style.backgroundColor = data.color;
+                bar.style.boxShadow = `0 0 10px ${data.color}44`;
+                chart.appendChild(bar);
+            });
+        }
+
+        function showMain() {
+            document.getElementById('detail-view').classList.add('hidden');
+            document.getElementById('main-view').classList.remove('hidden');
+        }
+
         function updateCountdown() {
             const target = new Date("2026-03-14T00:00:00").getTime();
             const now = new Date().getTime();
