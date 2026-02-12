@@ -14,9 +14,13 @@
         .glow-card { background: rgba(15, 23, 42, 0.7); border: 1px solid #1e293b; backdrop-filter: blur(12px); transition: all 0.3s ease; }
         .glow-card:hover { border-color: #38bdf8; transform: translateY(-2px); }
         .status-tag { font-size: 0.65rem; padding: 2px 10px; border-radius: 4px; text-transform: uppercase; font-weight: bold; }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.5s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* 認證介面美化 */
+        #auth-overlay { position: fixed; inset: 0; background: #020617; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .pin-input { background: #0f172a; border: 1px solid #1e293b; color: #0ea5e9; font-size: 2rem; width: 200px; text-align: center; letter-spacing: 0.5rem; outline: none; border-radius: 8px; }
+        .pin-input:focus { border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.5); }
         /* 捲軸美化 */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #020617; }
@@ -26,8 +30,19 @@
 </head>
 <body class="p-4 md:p-8">
 
-    <!-- TOP HEADER -->
-    <header class="flex justify-between items-end mb-8 border-b border-sky-900/50 pb-6">
+    <!-- AUTH OVERLAY -->
+    <div id="auth-overlay" class="fade-in">
+        <h1 class="cyber-font text-2xl font-black neon-text-blue mb-2 italic">IDENTITY REQUIRED</h1>
+        <p class="text-gray-500 text-[10px] tracking-[0.3em] uppercase mb-8">戰略指揮部・身份驗證系統</p>
+        <input type="password" id="pin-input" class="pin-input cyber-font" maxlength="4" placeholder="••••">
+        <p id="auth-error" class="text-red-500 text-[10px] mt-4 opacity-0">驗證失敗：代碼錯誤</p>
+        <div class="mt-10 text-[8px] text-gray-700 cyber-font tracking-widest">OWNED BY DRACULA / SECURED BY OWEN</div>
+    </div>
+
+    <!-- MAIN CONTENT WRAPPER (HIDDEN BY DEFAULT) -->
+    <div id="hq-content" class="hidden">
+        <!-- TOP HEADER -->
+        <header class="flex justify-between items-end mb-8 border-b border-sky-900/50 pb-6">
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
@@ -216,7 +231,39 @@
         </div>
     </div>
 
+    </div><!-- END HQ CONTENT -->
+
     <script>
+        // --- 身份驗證系統 ---
+        const pinInput = document.getElementById('pin-input');
+        const authOverlay = document.getElementById('auth-overlay');
+        const hqContent = document.getElementById('hq-content');
+        const authError = document.getElementById('auth-error');
+
+        // 加密密碼 (簡單混淆處理)
+        const TARGET_HASH = "MzczNg=="; // 0326 base64
+
+        pinInput.addEventListener('input', (e) => {
+            if (e.target.value.length === 4) {
+                if (btoa(e.target.value) === TARGET_HASH) {
+                    authOverlay.style.display = 'none';
+                    hqContent.classList.remove('hidden');
+                    // 記錄已登入
+                    sessionStorage.setItem('dracula_auth', 'true');
+                } else {
+                    authError.style.opacity = '1';
+                    e.target.value = '';
+                    setTimeout(() => { authError.style.opacity = '0'; }, 2000);
+                }
+            }
+        });
+
+        // 檢查 Session
+        if (sessionStorage.getItem('dracula_auth') === 'true') {
+            authOverlay.style.display = 'none';
+            hqContent.classList.remove('hidden');
+        }
+
         const storeData = {
             zhubei: { name: "竹北旗艦門市", total: "$10,047,550", ratio: "58% / 42%", weight: "64.3%", color: "#0ea5e9", history: [70, 85, 60, 95, 80, 88, 75, 78, 92] },
             xinfeng: { name: "新豐分部門市", total: "$5,576,107", ratio: "45% / 55%", weight: "35.7%", color: "#eab308", history: [40, 55, 30, 45, 50, 48, 35, 38, 52] },
