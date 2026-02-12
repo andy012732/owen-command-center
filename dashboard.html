@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德谷拉學長 x 學弟特助：戰略指揮中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #e0e0e0;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow-x: hidden;
+        }
+        .cyber-font { font-family: 'Orbitron', sans-serif; }
+        .neon-border {
+            border: 1px solid #00f3ff;
+            box-shadow: 0 0 10px #00f3ff, inset 0 0 5px #00f3ff;
+        }
+        .neon-text {
+            color: #00f3ff;
+            text-shadow: 0 0 8px #00f3ff;
+        }
+        .neon-text-white {
+            color: #ffffff;
+            text-shadow: 0 0 10px #ffffff;
+        }
+        .kanban-column {
+            background: rgba(20, 20, 20, 0.8);
+            border-left: 2px solid #333;
+            min-height: 70vh;
+        }
+        .task-card {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        .task-card:hover {
+            border-color: #00f3ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.2);
+        }
+        .glitch-effect {
+            animation: glitch 2s infinite;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <!-- Header -->
+    <header class="flex justify-between items-center mb-8 border-b border-cyan-900 pb-4">
+        <div>
+            <h1 class="cyber-font text-3xl font-bold neon-text glitch-effect">STRATEGIC COMMAND CENTER</h1>
+            <p class="text-gray-400 mt-1">德谷拉學長 x 學弟特助 v1.0</p>
+        </div>
+        <div class="text-right">
+            <div id="countdown" class="cyber-font text-2xl neon-text-white">LOADING...</div>
+            <p class="text-xs text-cyan-500 uppercase tracking-widest">UNTIL 3/14 GYBERPASS LAUNCH</p>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <!-- Column: Backlog -->
+        <div class="kanban-column p-4 rounded-lg">
+            <h2 class="cyber-font text-lg mb-4 flex items-center">
+                <span class="w-2 h-2 bg-gray-500 rounded-full mr-2"></span> 待辦事項 (BACKLOG)
+            </h2>
+            <div class="space-y-4">
+                <div class="task-card p-3 rounded border-l-4 border-gray-500">
+                    <span class="text-xs text-gray-500">GD Rider</span>
+                    <p class="text-sm font-bold">阿德管理能力考核標準制定</p>
+                </div>
+                <div class="task-card p-3 rounded border-l-4 border-gray-500">
+                    <span class="text-xs text-gray-500">IP 經營</span>
+                    <p class="text-sm font-bold">乾洗奶蓋爆款腳本編寫</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column: In Progress -->
+        <div class="kanban-column p-4 rounded-lg border-cyan-900/30">
+            <h2 class="cyber-font text-lg mb-4 flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> 進行中 (ACTIVE)
+            </h2>
+            <div class="space-y-4">
+                <div class="task-card p-3 rounded border-l-4 border-yellow-500 neon-border">
+                    <span class="text-xs text-yellow-500">SYSTEM</span>
+                    <p class="text-sm font-bold">戰略指揮中心介面開發</p>
+                    <div class="w-full bg-gray-700 h-1 mt-2">
+                        <div class="bg-cyan-500 h-1" style="width: 65%"></div>
+                    </div>
+                </div>
+                <div class="task-card p-3 rounded border-l-4 border-yellow-500">
+                    <span class="text-xs text-yellow-500">App 開發</span>
+                    <p class="text-sm font-bold">GyberPass 登入與神盾介面實作</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column: Sprint 3/14 -->
+        <div class="kanban-column p-4 rounded-lg bg-cyan-900/10">
+            <h2 class="cyber-font text-lg mb-4 flex items-center neon-text">
+                <span class="w-2 h-2 bg-cyan-400 rounded-full mr-2 shadow-[0_0_5px_#00f3ff]"></span> 3/14 衝刺區
+            </h2>
+            <div class="space-y-4">
+                <div class="task-card p-3 rounded border-l-4 border-cyan-400">
+                    <span class="text-xs text-cyan-400">EVENT</span>
+                    <p class="text-sm font-bold">四週年實體發表會流程規劃</p>
+                </div>
+                <div class="task-card p-3 rounded border-l-4 border-cyan-400">
+                    <span class="text-xs text-cyan-400">PRODUCT</span>
+                    <p class="text-sm font-bold">飆鋒衣 3078 限量版包裝設計</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column: Done -->
+        <div class="kanban-column p-4 rounded-lg">
+            <h2 class="cyber-font text-lg mb-4 flex items-center">
+                <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> 已完成 (DONE)
+            </h2>
+            <div class="space-y-4 opacity-60">
+                <div class="task-card p-3 rounded border-l-4 border-green-500">
+                    <span class="text-xs text-green-500">SYSTEM</span>
+                    <p class="text-sm font-bold">Notion API 權限開通</p>
+                </div>
+                <div class="task-card p-3 rounded border-l-4 border-green-500">
+                    <span class="text-xs text-green-500">IP 經營</span>
+                    <p class="text-sm font-bold">第一張飆鋒衣 AI 廣告圖生成</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Info -->
+    <footer class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-800 pt-6">
+        <div class="bg-gray-900/50 p-4 rounded border border-gray-800">
+            <h3 class="cyber-font text-xs text-gray-500 mb-2 uppercase">Current IP Stats (Simulated)</h3>
+            <div class="flex justify-between items-end">
+                <div>
+                    <p class="text-2xl font-bold">2.8W+</p>
+                    <p class="text-xs text-gray-400">Total Followers</p>
+                </div>
+                <div class="text-green-500 text-sm font-bold">+12% this week</div>
+            </div>
+        </div>
+        <div class="bg-gray-900/50 p-4 rounded border border-gray-800">
+            <h3 class="cyber-font text-xs text-gray-500 mb-2 uppercase">Stock Market (Simulated)</h3>
+            <div class="flex justify-between items-center">
+                <span class="font-bold">TSLA</span>
+                <span class="text-green-400">$XXX.XX (+2.5%)</span>
+                <span class="font-bold ml-4">NVDA</span>
+                <span class="text-green-400">$XXX.XX (+1.8%)</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateCountdown() {
+            const target = new Date("2026-03-14T00:00:00").getTime();
+            const now = new Date().getTime();
+            const dist = target - now;
+            const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("countdown").innerHTML = days + "D " + hours + "H " + mins + "M";
+        }
+        setInterval(updateCountdown, 60000);
+        updateCountdown();
+    </script>
+</body>
+</html>
