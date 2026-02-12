@@ -248,15 +248,50 @@
                 tasks: [
                     { name: "GyberPass 雙模式協定測試", status: "穩定度優化中", urgent: false },
                     { name: "3/14 App 領券自動化邏輯", status: "設計中", urgent: false },
-                    { name: "戰略指揮部 Dashboard V3.1", status: "已部署", urgent: false }
+                    { name: "戰略指揮部 Dashboard V3.2", status: "已部署", urgent: false }
                 ]
             }
         };
 
-        function showMission(missionId) {
-            const data = missionData[missionId];
+        // --- 路由系統 (支援瀏覽器回退) ---
+        function navigateTo(view, id = null) {
+            window.scrollTo(0, 0);
+            const state = { view, id };
+            history.pushState(state, "", "");
+            renderView(view, id);
+        }
+
+        window.onpopstate = function(event) {
+            if (event.state) {
+                renderView(event.state.view, event.state.id);
+            } else {
+                renderView('main');
+            }
+        };
+
+        function renderView(view, id) {
+            // 先隱藏所有
             document.getElementById('main-view').classList.add('hidden');
-            document.getElementById('mission-view').classList.remove('hidden');
+            document.getElementById('mission-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.add('hidden');
+
+            if (view === 'main') {
+                document.getElementById('main-view').classList.remove('hidden');
+            } else if (view === 'mission') {
+                document.getElementById('mission-view').classList.remove('hidden');
+                updateMissionView(id);
+            } else if (view === 'detail') {
+                document.getElementById('detail-view').classList.remove('hidden');
+                updateDetailView(id);
+            }
+        }
+
+        function showMain() { navigateTo('main'); }
+        function showMission(id) { navigateTo('mission', id); }
+        function showDetail(id) { navigateTo('detail', id); }
+
+        function updateMissionView(missionId) {
+            const data = missionData[missionId];
             document.getElementById('mission-container').style.borderColor = data.color;
             document.getElementById('mission-title').innerText = data.title;
             document.getElementById('mission-title').style.color = data.color;
@@ -277,10 +312,8 @@
             });
         }
 
-        function showDetail(storeId) {
+        function updateDetailView(storeId) {
             const data = storeData[storeId];
-            document.getElementById('main-view').classList.add('hidden');
-            document.getElementById('detail-view').classList.remove('hidden');
             document.getElementById('detail-container').style.borderColor = data.color;
             document.getElementById('detail-title').innerText = data.name;
             document.getElementById('detail-title').style.color = data.color;
@@ -288,7 +321,6 @@
             document.getElementById('store-ratio').innerText = data.ratio;
             document.getElementById('store-weight').innerText = data.weight;
             
-            // Build simple bar chart
             const chart = document.getElementById('chart-placeholder');
             chart.innerHTML = '';
             data.history.forEach(h => {
@@ -301,19 +333,17 @@
             });
         }
 
-        function showMain() {
-            document.getElementById('detail-view').classList.add('hidden');
-            document.getElementById('mission-view').classList.add('hidden');
-            document.getElementById('main-view').classList.remove('hidden');
-        }
+        // 初始化狀態
+        history.replaceState({view: 'main'}, "", "");
 
         function updateCountdown() {
             const target = new Date("2026-03-14T00:00:00").getTime();
             const now = new Date().getTime();
             const dist = target - now;
-            document.getElementById("countdown").innerHTML = Math.floor(dist / (1000 * 60 * 60 * 24)) + "D " + 
-                Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + "H " + 
-                Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60)) + "M";
+            const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+            const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("countdown").innerHTML = `${d}D ${h}H ${m}M`;
         }
         setInterval(updateCountdown, 1000); updateCountdown();
     </script>
