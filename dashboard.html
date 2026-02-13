@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>德谷拉學長戰略指揮部 V5.1 - Stability Patch</title>
+    <title>德谷拉學長戰略指揮部 V5.2 - 穩定優化版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
@@ -18,88 +18,97 @@
         }
         body { background-color: var(--bg-dark); color: #f8fafc; font-family: 'Noto Sans TC', sans-serif; overflow-x: hidden; margin: 0; }
         .cyber-font { font-family: 'Orbitron', sans-serif; }
-        .glow-card { background: rgba(15, 23, 42, 0.7); border: 1px solid #1e293b; backdrop-filter: blur(12px); position: relative; transition: border 0.3s; }
+        
+        /* 玻璃擬態背景 - 降低模糊度以減少殘影 */
+        .glow-card { background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b; backdrop-filter: blur(8px); position: relative; transition: border 0.3s; }
         .neon-text-blue { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
         .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .scan-line { width: 100%; height: 2px; background: rgba(14, 165, 233, 0.1); position: absolute; top: 0; left: 0; animation: scan 4s linear infinite; pointer-events: none; z-index: 10; }
-        @keyframes scan { from { top: 0; } to { top: 100%; } }
+        
+        /* 修復掃描線特效：改用 transform 避免佈局抖動 */
+        .scan-line { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--neon-blue), transparent); position: absolute; top: 0; left: 0; animation: scan 4s linear infinite; pointer-events: none; z-index: 10; opacity: 0.3; }
+        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(200px); } }
+        
         .ammo-bar { height: 8px; background: #0f172a; border: 1px solid #1e293b; overflow: hidden; border-radius: 2px; }
         .ammo-fill { height: 100%; transition: width 1s ease-in-out; }
     </style>
 </head>
 <body class="p-4 md:p-6">
 
-    <!-- AUTH OVERLAY -->
+    <!-- 身份驗證畫面 -->
     <div id="auth-overlay" class="fixed inset-0 bg-[#020617] z-[10000] flex flex-col items-center justify-center">
-        <h1 class="cyber-font text-2xl font-black neon-text-blue mb-2 italic tracking-tighter">HQ AUTHENTICATION</h1>
-        <p class="text-gray-600 text-[10px] tracking-[0.4em] uppercase mb-10">戰略指揮部・身份識別</p>
+        <h1 class="cyber-font text-2xl font-black neon-text-blue mb-2 italic tracking-tighter uppercase">Identity Required</h1>
+        <p class="text-gray-600 text-[10px] tracking-[0.4em] uppercase mb-10">戰略指揮部・身份識別系統</p>
         <input type="password" id="pin-input" class="bg-[#0f172a] border border-[#1e293b] text-[#0ea5e9] text-3xl w-48 text-center tracking-[0.5rem] outline-none rounded-lg p-2 cyber-font" maxlength="4" placeholder="••••">
-        <p id="auth-error" class="text-red-500 text-[10px] mt-6 opacity-0 cyber-font uppercase">Access Denied</p>
+        <p id="auth-error" class="text-red-500 text-[10px] mt-6 opacity-0 cyber-font uppercase tracking-widest">存取拒絕：代碼錯誤</p>
     </div>
 
-    <!-- MAIN CONTENT -->
+    <!-- 主內容區 -->
     <div id="hq-content" class="hidden">
         <header class="flex justify-between items-center mb-6 border-b border-sky-900/30 pb-4">
             <div class="flex items-center gap-4">
                 <span class="text-3xl">🧛‍♂️</span>
                 <div>
                     <h1 class="cyber-font text-2xl font-black neon-text-blue italic tracking-tighter">DRACULA COMMAND</h1>
-                    <p class="text-[9px] text-sky-500/60 font-bold uppercase tracking-widest">System Status: <span class="text-green-500">Battle Ready</span> | <span id="live-clock">--:--</span></p>
+                    <p class="text-[9px] text-sky-500/60 font-bold uppercase tracking-widest">系統狀態: <span class="text-green-500">戰備中</span> | <span id="live-clock">--:--</span></p>
                 </div>
             </div>
             <div class="text-right">
-                <p class="text-[8px] text-gray-500 uppercase cyber-font">3/14 Countdown</p>
+                <p class="text-[8px] text-gray-500 uppercase cyber-font">3/14 四週年倒數</p>
                 <div id="countdown" class="cyber-font text-lg font-bold text-white tracking-widest">---</div>
             </div>
         </header>
 
         <div id="main-view" class="fade-in">
-            <!-- PACE BAR -->
+            <!-- 今日進度條 -->
             <section class="glow-card p-5 rounded-xl border-l-4 border-sky-500 mb-6 overflow-hidden">
                 <div class="scan-line"></div>
-                <div class="flex flex-col md:flex-row justify-between md:items-end gap-4">
+                <div class="flex flex-col md:flex-row justify-between md:items-end gap-4 relative z-20">
                     <div>
                         <h3 class="text-[9px] text-sky-400 mb-1 uppercase tracking-widest font-bold">今日推進度 (Daily Pace)</h3>
-                        <p class="text-3xl font-black cyber-font">$81,380 <span class="text-[10px] text-green-400 font-bold ml-2">▲ 15.2% WoW</span></p>
+                        <p class="text-3xl font-black cyber-font text-white">$81,380 <span class="text-[10px] text-green-400 font-bold ml-2">▲ 15.2% <span class="text-gray-600 font-normal">較上週同期</span></span></p>
                     </div>
                     <div class="flex-1 max-w-md w-full">
+                        <div class="flex justify-between text-[8px] text-gray-600 uppercase mb-1">
+                            <span>當前進度: 81.3%</span>
+                            <span>目標: $100,000</span>
+                        </div>
                         <div class="w-full bg-gray-900 h-2 rounded border border-sky-900/30">
                             <div class="bg-sky-500 h-full shadow-[0_0_10px_#0ea5e9]" style="width: 81.3%"></div>
                         </div>
                     </div>
                     <div class="bg-slate-900/60 px-3 py-1 rounded border border-slate-800 text-center">
                         <p class="text-sm font-bold">⛅️ 16°C</p>
-                        <p class="text-[7px] text-gray-500 uppercase cyber-font">Hsinchu</p>
+                        <p class="text-[7px] text-gray-500 uppercase cyber-font">新竹市</p>
                     </div>
                 </div>
             </section>
 
-            <!-- MODULES -->
+            <!-- 戰略模組矩陣 -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                <!-- RADAR -->
+                <!-- 人員戰力雷達 -->
                 <div class="glow-card p-4 rounded-xl">
-                    <h3 class="text-[9px] font-bold text-sky-400 uppercase tracking-widest mb-4">Unit Combat Radar</h3>
+                    <h3 class="text-[9px] font-bold text-sky-400 uppercase tracking-widest mb-4">單位戰鬥雷達 (Combat Radar)</h3>
                     <div class="flex justify-center"><canvas id="radarChart" style="max-width: 180px; max-height: 180px;"></canvas></div>
                 </div>
-                <!-- ROAS -->
+                <!-- 廣告燃燒率 -->
                 <div class="glow-card p-4 rounded-xl flex flex-col items-center justify-center">
-                    <h3 class="text-[9px] font-bold text-orange-400 uppercase tracking-widest mb-2 w-full">ROAS Burn Rate</h3>
+                    <h3 class="text-[9px] font-bold text-orange-400 uppercase tracking-widest mb-2 w-full text-center">廣告燃料燃燒率 (ROAS)</h3>
                     <p class="text-4xl font-black cyber-font text-white">7.2</p>
-                    <p class="text-[10px] text-green-400 font-bold mt-1">STABLE PROGRESS</p>
-                    <div class="mt-4 text-[9px] text-cyan-400 cyber-font">42 USERS ONLINE</div>
+                    <p class="text-[10px] text-green-400 font-bold mt-1 uppercase">引擎推進穩定</p>
+                    <div class="mt-4 text-[9px] text-cyan-400 cyber-font">當前官網在線: 42 人</div>
                 </div>
-                <!-- ARMORY -->
+                <!-- 軍火庫存監控 -->
                 <div class="glow-card p-4 rounded-xl space-y-4">
-                    <h3 class="text-[9px] font-bold text-purple-400 uppercase tracking-widest">Armory Monitor</h3>
-                    <div><p class="text-[8px] text-gray-400 mb-1 uppercase">Titan Vector</p><div class="ammo-bar"><div class="ammo-fill bg-sky-500" style="width: 85%"></div></div></div>
-                    <div><p class="text-[8px] text-red-400 mb-1 uppercase font-bold">Gloves [Low]</p><div class="ammo-bar"><div class="ammo-fill bg-red-500" style="width: 12%"></div></div></div>
+                    <h3 class="text-[9px] font-bold text-purple-400 uppercase tracking-widest">軍火庫存監控 (Armory)</h3>
+                    <div><p class="text-[8px] text-gray-400 mb-1 uppercase">飆鋒衣 TITAN VECTOR</p><div class="ammo-bar"><div class="ammo-fill bg-sky-500" style="width: 85%"></div></div></div>
+                    <div><p class="text-[8px] text-red-400 mb-1 uppercase font-bold">防摔手套 [低庫存]</p><div class="ammo-bar"><div class="ammo-fill bg-red-500" style="width: 12%"></div></div></div>
                 </div>
-                <!-- SONAR -->
+                <!-- 社群聲納 -->
                 <div class="glow-card p-4 rounded-xl text-center flex flex-col justify-center">
-                    <h3 class="text-[9px] font-bold text-green-400 uppercase tracking-widest mb-2 w-full">Social Sonar</h3>
-                    <p class="text-xl font-black text-green-400">POSITIVE</p>
+                    <h3 class="text-[9px] font-bold text-green-400 uppercase tracking-widest mb-2 w-full text-center">社群輿情聲納 (Sonar)</h3>
+                    <p class="text-xl font-black text-green-400">正面好評</p>
                     <div class="mt-3 flex flex-wrap justify-center gap-1">
                         <span class="text-[7px] border border-slate-700 px-1 text-gray-500">#飆鋒衣</span>
                         <span class="text-[7px] border border-slate-700 px-1 text-gray-500">#想買</span>
@@ -107,26 +116,26 @@
                 </div>
             </div>
 
-            <!-- AI INSIGHTS -->
+            <!-- AI 戰略分析 -->
             <div class="glow-card p-5 rounded-xl border-b-4 border-purple-500 mb-6">
-                <h3 class="cyber-font text-[9px] text-purple-400 mb-3 tracking-[0.2em] uppercase">歐文特助日誌 (AI Insights)</h3>
+                <h3 class="cyber-font text-[9px] text-purple-400 mb-3 tracking-[0.2em] uppercase">歐文特助戰略日誌 (AI Insights)</h3>
                 <div class="space-y-2 text-[10px] text-gray-400">
-                    <p>● <span class="text-white font-bold">戰力分析</span>：家志本週成交率領先，建議新豐分部參考其銷售話術。</p>
-                    <p>● <span class="text-red-400 font-bold">庫存警報</span>：竹北手套庫存預計 3 天內斷貨，請立即調補。</p>
+                    <p>● <span class="text-white font-bold">戰力分析</span>：家志本週成交率卓越，建議阿德將其話術分享至新豐分部。</p>
+                    <p>● <span class="text-red-400 font-bold">補給警報</span>：竹北手套庫存告急，預計 72 小時內售罄，請立即從倉庫撥補。</p>
                 </div>
             </div>
             
             <div class="text-center opacity-20 hover:opacity-100 transition-opacity">
-                <p class="text-[7px] cyber-font tracking-widest">COMMAND CENTER V5.1 STABLE | AES-256 ENCRYPTED</p>
+                <p class="text-[7px] cyber-font tracking-widest uppercase">系統版本 V5.2 穩定版 | AES-256 加密存取</p>
             </div>
         </div>
 
-        <!-- SUB VIEWS (DETAIL/MISSION) -->
+        <!-- 子頁面 -->
         <div id="sub-view" class="hidden fade-in">
-            <button onclick="hideSubView()" class="mb-4 text-sky-400 text-[10px] font-bold cyber-font hover:text-white">◀ RETURN / 返回</button>
+            <button onclick="hideSubView()" class="mb-4 text-sky-400 text-[10px] font-bold cyber-font hover:text-white">◀ 返回戰術總部</button>
             <div class="glow-card p-6 rounded-xl border-t-4 border-sky-500">
-                <h2 id="sub-view-title" class="text-2xl font-black cyber-font mb-4 text-sky-400">DETAIL</h2>
-                <div id="sub-view-body" class="text-sm text-gray-400">Loading Secure Data Feed...</div>
+                <h2 id="sub-view-title" class="text-2xl font-black cyber-font mb-4 text-sky-400">數據研究</h2>
+                <div id="sub-view-body" class="text-sm text-gray-400">正在連接加密數據鏈路...</div>
             </div>
         </div>
     </div>
@@ -169,7 +178,7 @@
             new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['成交', '客單', '出勤', '日誌', '社群', '產品'],
+                    labels: ['成交率', '客單價', '出勤', '日誌', '社群', '產品'],
                     datasets: [{
                         label: '阿德', data: [65, 50, 90, 40, 60, 85],
                         borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.2)', pointRadius: 0
@@ -179,7 +188,7 @@
                     }]
                 },
                 options: {
-                    scales: { r: { grid: { color: '#1e293b' }, angleLines: { color: '#1e293b' }, ticks: { display: false }, pointLabels: { font: { size: 7 }, color: '#475569' } } },
+                    scales: { r: { grid: { color: '#1e293b' }, angleLines: { color: '#1e293b' }, ticks: { display: false }, pointLabels: { font: { size: 8 }, color: '#475569' } } },
                     plugins: { legend: { display: false } }
                 }
             });
@@ -188,7 +197,7 @@
         function showDetail(id) {
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('sub-view').classList.remove('hidden');
-            document.getElementById('sub-view-title').innerText = "Tactical Data: " + id.toUpperCase();
+            document.getElementById('sub-view-title').innerText = "戰術數據研究: " + id.toUpperCase();
         }
         function hideSubView() {
             document.getElementById('sub-view').classList.add('hidden');
@@ -203,10 +212,10 @@
             if (diff > 0) {
                 const d = Math.floor(diff/(1000*60*60*24));
                 const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-                elements.countdown.innerText = `${d}D ${h}H`;
+                elements.countdown.innerText = `${d}天 ${h}小時`;
             }
         }
-        setInterval(tick, 10000); tick();
+        setInterval(tick, 60000); tick();
     </script>
 </body>
 </html>
