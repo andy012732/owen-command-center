@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>德谷拉學長戰略指揮部 V5.3 - 門市鑽取版</title>
+    <title>德谷拉學長戰略指揮部 V6.0 - 全軍管理版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .scan-line { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--neon-blue), transparent); position: absolute; top: 0; left: 0; animation: scan 4s linear infinite; pointer-events: none; z-index: 10; opacity: 0.3; }
-        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(300px); } }
+        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(400px); } }
         .ammo-bar { height: 8px; background: #0f172a; border: 1px solid #1e293b; overflow: hidden; border-radius: 2px; }
         .ammo-fill { height: 100%; transition: width 1s ease-in-out; }
     </style>
@@ -77,32 +77,73 @@
                 </div>
             </section>
 
-            <!-- 各店業績個別清單 (Feature Update) -->
-            <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">各部營收個別監測 (Retail Deployment)</h2>
+            <!-- 事業版圖營收 -->
+            <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">各部營收監測 (Deployment)</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div onclick="showDetail('zhubei')" class="glow-card p-5 rounded-xl cursor-pointer hover:border-sky-400 border-l-2 border-sky-500 group">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xs font-bold text-gray-300 uppercase">竹北旗艦部</h3>
-                        <span class="text-[8px] text-green-400 font-bold">佔比 64%</span>
-                    </div>
-                    <p class="text-2xl font-black cyber-font text-white group-hover:text-sky-400 transition-colors">$52,750</p>
-                    <p class="text-[9px] text-gray-600 mt-2 italic font-bold">查看深度數據 ➔</p>
+                <div onclick="showDetail('zhubei')" class="glow-card p-4 rounded-xl cursor-pointer border-l-2 border-sky-500 hover:neon-blue">
+                    <h3 class="text-[10px] font-bold text-gray-400 uppercase">竹北旗艦部</h3>
+                    <p class="text-2xl font-black cyber-font">$52,750</p>
                 </div>
-                <div onclick="showDetail('xinfeng')" class="glow-card p-5 rounded-xl cursor-pointer hover:border-yellow-400 border-l-2 border-yellow-500 group">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xs font-bold text-gray-300 uppercase">新豐分部</h3>
-                        <span class="text-[8px] text-yellow-500 font-bold">佔比 36%</span>
-                    </div>
-                    <p class="text-2xl font-black cyber-font text-yellow-500 group-hover:text-yellow-400 transition-colors">$28,630</p>
-                    <p class="text-[9px] text-gray-600 mt-2 italic font-bold">查看深度數據 ➔</p>
+                <div onclick="showDetail('xinfeng')" class="glow-card p-4 rounded-xl cursor-pointer border-l-2 border-yellow-500 hover:neon-blue">
+                    <h3 class="text-[10px] font-bold text-gray-400 uppercase">新豐分部</h3>
+                    <p class="text-2xl font-black cyber-font text-yellow-500">$28,630</p>
                 </div>
-                <div onclick="showDetail('online')" class="glow-card p-5 rounded-xl cursor-pointer hover:border-purple-400 border-l-2 border-purple-500 group border-purple-900/30">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xs font-bold text-gray-300 uppercase">線上官方商城</h3>
-                        <span class="text-[8px] text-purple-400 font-bold">偵查中</span>
+                <div onclick="showDetail('online')" class="glow-card p-4 rounded-xl cursor-pointer border-l-2 border-purple-500 hover:neon-blue border-purple-900/20">
+                    <h3 class="text-[10px] font-bold text-gray-400 uppercase">線上官網</h3>
+                    <p class="text-2xl font-black cyber-font text-purple-500">$0</p>
+                </div>
+            </div>
+
+            <!-- 人員佈署管理 (Feature Update) -->
+            <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">人員戰力佈署 (Unit Management)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+                <!-- 阿德 -->
+                <div onclick="showUnit('ade')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-sky-400">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-sky-900/30 flex items-center justify-center mb-2 border border-sky-500/50">
+                        <span class="text-lg">👔</span>
                     </div>
-                    <p class="text-2xl font-black cyber-font text-purple-500 group-hover:text-purple-400 transition-colors">$0</p>
-                    <p class="text-[9px] text-gray-600 mt-2 italic font-bold">查看深度數據 ➔</p>
+                    <p class="text-xs font-bold">阿德</p>
+                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Manager</p>
+                </div>
+                <!-- 順淵 -->
+                <div onclick="showUnit('sy')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-green-400">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-green-900/30 flex items-center justify-center mb-2 border border-green-500/50">
+                        <span class="text-lg">⚡</span>
+                    </div>
+                    <p class="text-xs font-bold">順淵</p>
+                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Assistant</p>
+                </div>
+                <!-- 家志 -->
+                <div onclick="showUnit('jz')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-purple-400">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-purple-900/30 flex items-center justify-center mb-2 border border-purple-500/50">
+                        <span class="text-lg">🔥</span>
+                    </div>
+                    <p class="text-xs font-bold">家志</p>
+                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Sales</p>
+                </div>
+                <!-- 景棠 -->
+                <div onclick="showUnit('jt')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-orange-400">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-orange-900/30 flex items-center justify-center mb-2 border border-orange-500/50">
+                        <span class="text-lg">🎯</span>
+                    </div>
+                    <p class="text-xs font-bold">景棠</p>
+                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Marketing</p>
+                </div>
+                <!-- 柚子 -->
+                <div onclick="showUnit('yz')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-cyan-400">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-cyan-900/30 flex items-center justify-center mb-2 border border-cyan-500/50">
+                        <span class="text-lg">🎬</span>
+                    </div>
+                    <p class="text-xs font-bold">柚子</p>
+                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Media</p>
+                </div>
+                <!-- 柏霖 -->
+                <div onclick="showUnit('bl')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-red-400">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-red-900/30 flex items-center justify-center mb-2 border border-red-500/50">
+                        <span class="text-lg">👀</span>
+                    </div>
+                    <p class="text-xs font-bold">柏霖</p>
+                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Monitor</p>
                 </div>
             </div>
 
@@ -112,8 +153,7 @@
                 <div class="glow-card p-4 rounded-xl flex flex-col items-center justify-center text-center">
                     <h3 class="text-[9px] font-bold text-orange-400 uppercase mb-2 w-full">廣告燃燒率 (ROAS)</h3>
                     <p class="text-4xl font-black cyber-font text-white">7.2</p>
-                    <p class="text-[10px] text-green-400 font-bold mt-1 uppercase tracking-tighter">引擎推進穩定</p>
-                    <p class="mt-4 text-[9px] text-cyan-400 cyber-font">42 人正在在線</p>
+                    <p class="text-[10px] text-green-400 font-bold mt-1 uppercase">引擎推進穩定</p>
                 </div>
                 <div class="glow-card p-4 rounded-xl space-y-4">
                     <h3 class="text-[9px] font-bold text-purple-400 uppercase tracking-widest">軍火庫存監控</h3>
@@ -127,21 +167,21 @@
                 </div>
             </div>
 
-            <!-- AI 戰略分析 -->
+            <!-- AI 戰略日誌 -->
             <div class="glow-card p-5 rounded-xl border-b-4 border-purple-500 mb-8">
                 <h3 class="cyber-font text-[9px] text-purple-400 mb-3 tracking-[0.2em] uppercase">歐文特助戰略日誌</h3>
-                <div class="space-y-2 text-[10px] text-gray-400">
-                    <p>● <span class="text-white font-bold">數據異常</span>：新豐分部數位支付比 (14%) 顯著低於平均值，請確認機台連線。</p>
-                    <p>● <span class="text-sky-300 font-bold">戰略建議</span>：本週末氣候回暖，建議加強「冰狼袖套」的門市陳列。</p>
+                <div id="ai-logs" class="space-y-2 text-[10px] text-gray-400">
+                    <p>● <span class="text-white font-bold">即時警報</span>：偵測到新豐分部數位支付比低於警戒線，請學長關注阿德的門市管理。</p>
+                    <p>● <span class="text-sky-300 font-bold">優化建議</span>：家志本月成交率極高，可安排其擔任 3/14 現場活動的領隊銷售。</p>
                 </div>
             </div>
         </div>
 
-        <!-- 子頁面區塊 -->
+        <!-- 子頁面區塊 (通用) -->
         <div id="sub-view" class="hidden fade-in">
             <button onclick="hideSubView()" class="mb-4 text-sky-400 text-[10px] font-bold cyber-font hover:text-white">◀ 返回戰術總部</button>
             <div class="glow-card p-6 md:p-10 rounded-xl border-t-4 border-sky-500" id="sub-view-container">
-                <h2 id="sub-view-title" class="text-3xl font-black cyber-font mb-8 uppercase text-sky-400">---</h2>
+                <h2 id="sub-view-title" class="text-3xl font-black cyber-font mb-4 uppercase">---</h2>
                 <div id="sub-view-body"></div>
             </div>
         </div>
@@ -206,10 +246,50 @@
                     <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">支付結構 (數位:現金)</p><p class="text-2xl font-black cyber-font text-white">${d.ratio}</p></div>
                     <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">週期成長率</p><p class="text-2xl font-black cyber-font text-green-400">${d.growth}</p></div>
                 </div>
-                <div class="border-t border-slate-800 pt-8">
-                    <h4 class="text-[10px] font-bold text-sky-500 mb-8 cyber-font uppercase tracking-[0.3em]">店鋪歷史表現趨勢 (Combat History)</h4>
-                    <div class="h-48 flex items-end justify-between gap-3 px-4 border-b border-slate-800 pb-2">
-                        ${d.history.map(h => `<div class="bg-slate-800 w-full rounded-t relative"><div class="absolute bottom-0 w-full rounded-t opacity-80" style="height:${h}%; background-color:${d.color}; box-shadow:0 0 15px ${d.color}44;"></div></div>`).join('')}
+            `;
+        }
+
+        const unitData = {
+            ade: { name: "阿德 [Store Manager]", role: "👔 雙門市店長", color: "#0ea5e9", 
+                   content: "負責全店營運調度、SOP 執行監督、庫存管理。確保兩店門市維持德谷拉品牌標準。",
+                   focus: "1. 門市整潔與檢核表達成度。<br>2. 員工紀律與執行力監控。<br>3. 庫存調撥與盤點準確率。" },
+            sy: { name: "順淵 [Assistant]", role: "⚡ 儲位副店長", color: "#22c55e",
+                  content: "執行力中樞。負責各店業績目標達成、排班優化、並在學長不在時擔任臨時指揮官。",
+                  focus: "1. 每日業績配速監控。<br>2. 3/14 活動門市現場執行清單。<br>3. 門市新人培訓進度。" },
+            jz: { name: "家志 [Sales]", role: "🔥 首席銷售戰士", color: "#a855f7",
+                  content: "前線第一線銷售。負責大客戶維繫、深度商品解說。具備極強的轉換能力與親和力。",
+                  focus: "1. 成交轉化率與客單價。<br>2. 售後滿意度與顧客再訪率。<br>3. 新品市場反應回饋。" },
+            jt: { name: "景棠 [Marketing]", role: "🎯 行銷戰略長", color: "#f97316",
+                  content: "負責品牌整體行銷活動企劃、官方網站營運、廣告投放監控與流量成長戰略。",
+                  focus: "1. 廣告 ROAS 達成率。<br>2. 官網轉單轉化路徑分析。<br>3. 社群活動導流效率。" },
+            yz: { name: "柚子 [Media]", role: "🎬 影音媒體官", color: "#06b6d4",
+                  content: "影音內容產線核心。負責 TikTok/IG 影片拍攝、剪輯、社群客服回覆與視覺美編。",
+                  focus: "1. 影片發片頻率與腳本撰寫進度。<br>2. 社群留言回覆時效與情緒。<br>3. 3/14 四週年影片產出期程。" },
+            bl: { name: "柏霖 [Monitor]", role: "👀 門市戰士", color: "#ef4444",
+                  content: "門市庶務、商品陳列、基礎接待。主要負責維持店面運作之基礎細節。",
+                  focus: "1. 勤惰狀況與出勤穩定度。<br>2. 工作日誌填寫真實度。<br>3. 執行細節落實情況。" }
+        };
+
+        function showUnit(id) {
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('sub-view').classList.remove('hidden');
+            const d = unitData[id];
+            document.getElementById('sub-view-title').innerText = d.name;
+            document.getElementById('sub-view-title').style.color = d.color;
+            document.getElementById('sub-view-container').style.borderColor = d.color;
+            document.getElementById('sub-view-body').innerHTML = `
+                <div class="space-y-8">
+                    <div class="glow-card p-6 rounded-xl border-l-4" style="border-color:${d.color}">
+                        <h4 class="text-xs font-bold text-gray-400 uppercase mb-4 tracking-widest">核心工作內容 (Core Responsibilities)</h4>
+                        <p class="text-sm text-white leading-relaxed">${d.content}</p>
+                    </div>
+                    <div class="glow-card p-6 rounded-xl border-l-4 border-yellow-500 bg-yellow-900/10">
+                        <h4 class="text-xs font-bold text-yellow-500 uppercase mb-4 tracking-widest">⚠️ 諮詢與監控重點 (Consulting Focus)</h4>
+                        <p class="text-sm text-gray-200 leading-loose">${d.focus}</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="flex-1 py-3 bg-slate-900 border border-slate-800 rounded-lg text-[10px] font-bold hover:bg-slate-800 transition-colors">查看 Notion 個人日誌</button>
+                        <button class="flex-1 py-3 bg-slate-900 border border-slate-800 rounded-lg text-[10px] font-bold hover:bg-slate-800 transition-colors">下達今日戰術指令</button>
                     </div>
                 </div>
             `;
