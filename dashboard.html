@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>德谷拉學長戰略指揮部 V6.0 - 全軍管理版</title>
+    <title>德谷拉學長戰略指揮部 V6.1 - 人員與開發深度版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
@@ -25,9 +25,14 @@
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .scan-line { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--neon-blue), transparent); position: absolute; top: 0; left: 0; animation: scan 4s linear infinite; pointer-events: none; z-index: 10; opacity: 0.3; }
-        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(400px); } }
+        @keyframes scan { from { transform: translateY(0); } to { transform: translateY(300px); } }
         .ammo-bar { height: 8px; background: #0f172a; border: 1px solid #1e293b; overflow: hidden; border-radius: 2px; }
         .ammo-fill { height: 100%; transition: width 1s ease-in-out; }
+        
+        /* Progress Circle for App */
+        .progress-circle { position: relative; width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(var(--neon-blue) var(--p), #1e293b 0); display: flex; align-items: center; justify-content: center; }
+        .progress-circle::after { content: ""; position: absolute; width: 50px; height: 50px; background: var(--bg-dark); border-radius: 50%; }
+        .progress-inner { position: relative; z-index: 10; font-size: 10px; font-weight: bold; color: var(--neon-blue); }
     </style>
 </head>
 <body class="p-4 md:p-6">
@@ -77,74 +82,80 @@
                 </div>
             </section>
 
-            <!-- 事業版圖營收 -->
-            <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">各部營收監測 (Deployment)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div onclick="showDetail('zhubei')" class="glow-card p-4 rounded-xl cursor-pointer border-l-2 border-sky-500 hover:neon-blue">
-                    <h3 class="text-[10px] font-bold text-gray-400 uppercase">竹北旗艦部</h3>
-                    <p class="text-2xl font-black cyber-font">$52,750</p>
+            <!-- 核心戰略雙板：人員管理 & App開發 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                
+                <!-- 人員管理區塊 -->
+                <div class="glow-card p-5 rounded-xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="cyber-font text-[10px] text-sky-500 tracking-[0.5em] uppercase">人員戰力佈署 (Unit Management)</h2>
+                        <span class="text-[8px] text-gray-600">ONLINE: 6 UNITS</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div onclick="showUnit('ade')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-sky-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">👔</span>
+                            <p class="text-[10px] font-bold">阿德</p>
+                        </div>
+                        <div onclick="showUnit('sy')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-green-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">⚡</span>
+                            <p class="text-[10px] font-bold">順淵</p>
+                        </div>
+                        <div onclick="showUnit('jz')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-purple-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">🔥</span>
+                            <p class="text-[10px] font-bold">家志</p>
+                        </div>
+                        <div onclick="showUnit('jt')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-orange-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">🎯</span>
+                            <p class="text-[10px] font-bold">景棠</p>
+                        </div>
+                        <div onclick="showUnit('yz')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-cyan-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">🎬</span>
+                            <p class="text-[10px] font-bold">柚子</p>
+                        </div>
+                        <div onclick="showUnit('bl')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-red-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">👀</span>
+                            <p class="text-[10px] font-bold">柏霖</p>
+                        </div>
+                    </div>
                 </div>
-                <div onclick="showDetail('xinfeng')" class="glow-card p-4 rounded-xl cursor-pointer border-l-2 border-yellow-500 hover:neon-blue">
-                    <h3 class="text-[10px] font-bold text-gray-400 uppercase">新豐分部</h3>
-                    <p class="text-2xl font-black cyber-font text-yellow-500">$28,630</p>
-                </div>
-                <div onclick="showDetail('online')" class="glow-card p-4 rounded-xl cursor-pointer border-l-2 border-purple-500 hover:neon-blue border-purple-900/20">
-                    <h3 class="text-[10px] font-bold text-gray-400 uppercase">線上官網</h3>
-                    <p class="text-2xl font-black cyber-font text-purple-500">$0</p>
-                </div>
-            </div>
 
-            <!-- 人員佈署管理 (Feature Update) -->
-            <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">人員戰力佈署 (Unit Management)</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
-                <!-- 阿德 -->
-                <div onclick="showUnit('ade')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-sky-400">
-                    <div class="w-10 h-10 mx-auto rounded-full bg-sky-900/30 flex items-center justify-center mb-2 border border-sky-500/50">
-                        <span class="text-lg">👔</span>
+                <!-- App開發監控區塊 -->
+                <div class="glow-card p-5 rounded-xl border-r-4 border-cyan-500">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="cyber-font text-[10px] text-cyan-400 tracking-[0.5em] uppercase">GyberPass 開發實驗室 (Dev Lab)</h2>
+                        <span class="text-[8px] bg-cyan-900/30 text-cyan-400 px-2 rounded animate-pulse">V1.0 ALPHA</span>
                     </div>
-                    <p class="text-xs font-bold">阿德</p>
-                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Manager</p>
-                </div>
-                <!-- 順淵 -->
-                <div onclick="showUnit('sy')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-green-400">
-                    <div class="w-10 h-10 mx-auto rounded-full bg-green-900/30 flex items-center justify-center mb-2 border border-green-500/50">
-                        <span class="text-lg">⚡</span>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
+                            <div class="progress-circle" style="--p: 85%">
+                                <span class="progress-inner">85%</span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-200 uppercase">神盾雷達核心 (Sleeper Mode)</p>
+                                <p class="text-[9px] text-green-400 mt-1">● API 接口調試完成，進入穩定性測試</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
+                            <div class="progress-circle" style="--p: 40%">
+                                <span class="progress-inner">40%</span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-200 uppercase">遊戲化與積分系統 (Gamification)</p>
+                                <p class="text-[9px] text-yellow-400 mt-1">● Supabase 資料庫架構規劃中</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
+                            <div class="progress-circle" style="--p: 20%">
+                                <span class="progress-inner">20%</span>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-gray-200 uppercase">3/14 QR 領券系統</p>
+                                <p class="text-[9px] text-red-400 mt-1">● 邏輯發想中，待 UI 組件確認</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-xs font-bold">順淵</p>
-                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Assistant</p>
                 </div>
-                <!-- 家志 -->
-                <div onclick="showUnit('jz')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-purple-400">
-                    <div class="w-10 h-10 mx-auto rounded-full bg-purple-900/30 flex items-center justify-center mb-2 border border-purple-500/50">
-                        <span class="text-lg">🔥</span>
-                    </div>
-                    <p class="text-xs font-bold">家志</p>
-                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Sales</p>
-                </div>
-                <!-- 景棠 -->
-                <div onclick="showUnit('jt')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-orange-400">
-                    <div class="w-10 h-10 mx-auto rounded-full bg-orange-900/30 flex items-center justify-center mb-2 border border-orange-500/50">
-                        <span class="text-lg">🎯</span>
-                    </div>
-                    <p class="text-xs font-bold">景棠</p>
-                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Marketing</p>
-                </div>
-                <!-- 柚子 -->
-                <div onclick="showUnit('yz')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-cyan-400">
-                    <div class="w-10 h-10 mx-auto rounded-full bg-cyan-900/30 flex items-center justify-center mb-2 border border-cyan-500/50">
-                        <span class="text-lg">🎬</span>
-                    </div>
-                    <p class="text-xs font-bold">柚子</p>
-                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Media</p>
-                </div>
-                <!-- 柏霖 -->
-                <div onclick="showUnit('bl')" class="glow-card p-3 rounded-lg cursor-pointer text-center hover:border-red-400">
-                    <div class="w-10 h-10 mx-auto rounded-full bg-red-900/30 flex items-center justify-center mb-2 border border-red-500/50">
-                        <span class="text-lg">👀</span>
-                    </div>
-                    <p class="text-xs font-bold">柏霖</p>
-                    <p class="text-[8px] text-gray-500 uppercase cyber-font">Monitor</p>
-                </div>
+
             </div>
 
             <!-- 戰略模組 -->
@@ -167,17 +178,17 @@
                 </div>
             </div>
 
-            <!-- AI 戰略日誌 -->
+            <!-- AI 戰略分析 -->
             <div class="glow-card p-5 rounded-xl border-b-4 border-purple-500 mb-8">
                 <h3 class="cyber-font text-[9px] text-purple-400 mb-3 tracking-[0.2em] uppercase">歐文特助戰略日誌</h3>
                 <div id="ai-logs" class="space-y-2 text-[10px] text-gray-400">
-                    <p>● <span class="text-white font-bold">即時警報</span>：偵測到新豐分部數位支付比低於警戒線，請學長關注阿德的門市管理。</p>
-                    <p>● <span class="text-sky-300 font-bold">優化建議</span>：家志本月成交率極高，可安排其擔任 3/14 現場活動的領隊銷售。</p>
+                    <p>● <span class="text-white font-bold">App 開發</span>：神盾雷達核心進度良好，建議優先處理 3/14 領券功能的 UI 對接。</p>
+                    <p>● <span class="text-yellow-400 font-bold">管理建議</span>：家志能力雷達在成交率表現突出，本週末可安排其負責竹北旗艦店的大單開發。</p>
                 </div>
             </div>
         </div>
 
-        <!-- 子頁面區塊 (通用) -->
+        <!-- 子頁面區塊 -->
         <div id="sub-view" class="hidden fade-in">
             <button onclick="hideSubView()" class="mb-4 text-sky-400 text-[10px] font-bold cyber-font hover:text-white">◀ 返回戰術總部</button>
             <div class="glow-card p-6 md:p-10 rounded-xl border-t-4 border-sky-500" id="sub-view-container">
@@ -228,27 +239,6 @@
             });
         }
 
-        function showDetail(id) {
-            document.getElementById('main-view').classList.add('hidden');
-            document.getElementById('sub-view').classList.remove('hidden');
-            const dataMap = {
-                zhubei: { name: "竹北旗艦部", total: "$10.04M", ratio: "60:40", growth: "+18.2%", color: "#0ea5e9", history: [60,80,50,90,75,85] },
-                xinfeng: { name: "新豐分部", total: "$5.57M", ratio: "45:55", growth: "+8.5%", color: "#eab308", history: [40,50,30,45,55,48] },
-                online: { name: "線上官網 (91APP)", total: "數據串接中", ratio: "100:0", growth: "N/A", color: "#a855f7", history: [0,0,0,0,0,0] }
-            };
-            const d = dataMap[id];
-            document.getElementById('sub-view-title').innerText = d.name;
-            document.getElementById('sub-view-title').style.color = d.color;
-            document.getElementById('sub-view-container').style.borderColor = d.color;
-            document.getElementById('sub-view-body').innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">歷年總累積營收</p><p class="text-2xl font-black cyber-font text-white">${d.total}</p></div>
-                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">支付結構 (數位:現金)</p><p class="text-2xl font-black cyber-font text-white">${d.ratio}</p></div>
-                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">週期成長率</p><p class="text-2xl font-black cyber-font text-green-400">${d.growth}</p></div>
-                </div>
-            `;
-        }
-
         const unitData = {
             ade: { name: "阿德 [Store Manager]", role: "👔 雙門市店長", color: "#0ea5e9", 
                    content: "負責全店營運調度、SOP 執行監督、庫存管理。確保兩店門市維持德谷拉品牌標準。",
@@ -287,18 +277,32 @@
                         <h4 class="text-xs font-bold text-yellow-500 uppercase mb-4 tracking-widest">⚠️ 諮詢與監控重點 (Consulting Focus)</h4>
                         <p class="text-sm text-gray-200 leading-loose">${d.focus}</p>
                     </div>
-                    <div class="flex gap-4">
-                        <button class="flex-1 py-3 bg-slate-900 border border-slate-800 rounded-lg text-[10px] font-bold hover:bg-slate-800 transition-colors">查看 Notion 個人日誌</button>
-                        <button class="flex-1 py-3 bg-slate-900 border border-slate-800 rounded-lg text-[10px] font-bold hover:bg-slate-800 transition-colors">下達今日戰術指令</button>
-                    </div>
                 </div>
             `;
         }
 
-        function hideSubView() {
-            document.getElementById('sub-view').classList.add('hidden');
-            document.getElementById('main-view').classList.remove('hidden');
+        function showDetail(id) {
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('sub-view').classList.remove('hidden');
+            const dataMap = {
+                zhubei: { name: "竹北旗艦部", total: "$10.04M", ratio: "60:40", growth: "+18.2%", color: "#0ea5e9" },
+                xinfeng: { name: "新豐分部", total: "$5.57M", ratio: "45:55", growth: "+8.5%", color: "#eab308" },
+                online: { name: "線上官網 (91APP)", total: "數據串接中", ratio: "100:0", growth: "N/A", color: "#a855f7" }
+            };
+            const d = dataMap[id];
+            document.getElementById('sub-view-title').innerText = d.name;
+            document.getElementById('sub-view-title').style.color = d.color;
+            document.getElementById('sub-view-container').style.borderColor = d.color;
+            document.getElementById('sub-view-body').innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">歷年總累積營收</p><p class="text-2xl font-black cyber-font text-white">${d.total}</p></div>
+                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">支付結構</p><p class="text-2xl font-black cyber-font text-white">${d.ratio}</p></div>
+                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">週期成長率</p><p class="text-2xl font-black cyber-font text-green-400">${d.growth}</p></div>
+                </div>
+            `;
         }
+
+        function hideSubView() { document.getElementById('sub-view').classList.add('hidden'); document.getElementById('main-view').classList.remove('hidden'); }
 
         function tick() {
             const now = new Date();
