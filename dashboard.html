@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>德谷拉學長戰略指揮部 V6.1 - 人員與開發深度版</title>
+    <title>德谷拉學長戰略指揮部 V6.5 - 終極艦橋版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
@@ -28,8 +28,6 @@
         @keyframes scan { from { transform: translateY(0); } to { transform: translateY(300px); } }
         .ammo-bar { height: 8px; background: #0f172a; border: 1px solid #1e293b; overflow: hidden; border-radius: 2px; }
         .ammo-fill { height: 100%; transition: width 1s ease-in-out; }
-        
-        /* Progress Circle for App */
         .progress-circle { position: relative; width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(var(--neon-blue) var(--p), #1e293b 0); display: flex; align-items: center; justify-content: center; }
         .progress-circle::after { content: ""; position: absolute; width: 50px; height: 50px; background: var(--bg-dark); border-radius: 50%; }
         .progress-inner { position: relative; z-index: 10; font-size: 10px; font-weight: bold; color: var(--neon-blue); }
@@ -37,7 +35,6 @@
 </head>
 <body class="p-4 md:p-6">
 
-    <!-- 身份驗證 -->
     <div id="auth-overlay" class="fixed inset-0 bg-[#020617] z-[10000] flex flex-col items-center justify-center">
         <h1 class="cyber-font text-2xl font-black neon-text-blue mb-2 italic uppercase">Identity Required</h1>
         <p class="text-gray-600 text-[10px] tracking-[0.4em] uppercase mb-10">戰略指揮部・身份識別系統</p>
@@ -45,7 +42,6 @@
         <p id="auth-error" class="text-red-500 text-[10px] mt-6 opacity-0 cyber-font">驗證失敗：代碼錯誤</p>
     </div>
 
-    <!-- 主內容 -->
     <div id="hq-content" class="hidden">
         <header class="flex justify-between items-center mb-6 border-b border-sky-900/30 pb-4">
             <div class="flex items-center gap-4">
@@ -68,108 +64,107 @@
                 <div class="flex flex-col md:flex-row justify-between md:items-end gap-4 relative z-20">
                     <div>
                         <h3 class="text-[9px] text-sky-400 mb-1 uppercase font-bold tracking-widest">今日全線推進度 (Total Pace)</h3>
-                        <p class="text-3xl font-black cyber-font text-white">$81,380 <span class="text-[10px] text-green-400 font-bold ml-2">▲ 15.2% 較上週</span></p>
+                        <p class="text-3xl font-black cyber-font text-white">$103,935 <span class="text-[10px] text-green-400 font-bold ml-2">▲ 27.7% 較上週</span></p>
                     </div>
                     <div class="flex-1 max-w-md w-full">
+                        <div class="flex justify-between text-[8px] text-gray-600 uppercase mb-1">
+                            <span>當前進度: 103.9%</span>
+                            <span>目標: $100,000</span>
+                        </div>
                         <div class="w-full bg-gray-900 h-2 rounded border border-sky-900/30">
-                            <div class="bg-sky-500 h-full shadow-[0_0_10px_#0ea5e9]" style="width: 81.3%"></div>
+                            <div class="bg-sky-500 h-full shadow-[0_0_10px_#22c55e]" style="width: 100%"></div>
                         </div>
                     </div>
                     <div class="bg-slate-900/60 px-3 py-1 rounded border border-slate-800 text-center">
-                        <p class="text-sm font-bold">⛅️ 16°C</p>
+                        <p class="text-sm font-bold">🌦 14°C</p>
                         <p class="text-[7px] text-gray-500 uppercase cyber-font">新竹市</p>
                     </div>
                 </div>
             </section>
 
-            <!-- 核心戰略雙板：人員管理 & App開發 -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                
-                <!-- 人員管理區塊 -->
-                <div class="glow-card p-5 rounded-xl">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="cyber-font text-[10px] text-sky-500 tracking-[0.5em] uppercase">人員戰力佈署 (Unit Management)</h2>
-                        <span class="text-[8px] text-gray-600">ONLINE: 6 UNITS</span>
+            <!-- 各店營收清單 -->
+            <h2 class="cyber-font text-[10px] text-sky-500 mb-4 tracking-[0.5em] uppercase px-2">各部營收個別監測 (Deployment)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div onclick="showDetail('zhubei')" class="glow-card p-5 rounded-xl cursor-pointer hover:border-sky-400 border-l-2 border-sky-500 group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xs font-bold text-gray-300">竹北旗艦部</h3>
+                        <span class="text-[8px] text-green-400 font-bold">佔比 64%</span>
                     </div>
-                    <div class="grid grid-cols-3 gap-3">
-                        <div onclick="showUnit('ade')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-sky-500 border border-slate-800 text-center transition-colors">
-                            <span class="text-lg block mb-1">👔</span>
-                            <p class="text-[10px] font-bold">阿德</p>
-                        </div>
-                        <div onclick="showUnit('sy')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-green-500 border border-slate-800 text-center transition-colors">
-                            <span class="text-lg block mb-1">⚡</span>
-                            <p class="text-[10px] font-bold">順淵</p>
-                        </div>
-                        <div onclick="showUnit('jz')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-purple-500 border border-slate-800 text-center transition-colors">
-                            <span class="text-lg block mb-1">🔥</span>
-                            <p class="text-[10px] font-bold">家志</p>
-                        </div>
-                        <div onclick="showUnit('jt')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-orange-500 border border-slate-800 text-center transition-colors">
-                            <span class="text-lg block mb-1">🎯</span>
-                            <p class="text-[10px] font-bold">景棠</p>
-                        </div>
-                        <div onclick="showUnit('yz')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-cyan-500 border border-slate-800 text-center transition-colors">
-                            <span class="text-lg block mb-1">🎬</span>
-                            <p class="text-[10px] font-bold">柚子</p>
-                        </div>
-                        <div onclick="showUnit('bl')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-red-500 border border-slate-800 text-center transition-colors">
-                            <span class="text-lg block mb-1">👀</span>
-                            <p class="text-[10px] font-bold">柏霖</p>
-                        </div>
-                    </div>
+                    <p class="text-2xl font-black cyber-font text-white group-hover:text-sky-400 transition-colors">$77,550</p>
+                    <p class="text-[9px] text-gray-600 mt-2 italic">查看深度數據 ➔</p>
                 </div>
-
-                <!-- App開發監控區塊 -->
-                <div class="glow-card p-5 rounded-xl border-r-4 border-cyan-500">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="cyber-font text-[10px] text-cyan-400 tracking-[0.5em] uppercase">GyberPass 開發實驗室 (Dev Lab)</h2>
-                        <span class="text-[8px] bg-cyan-900/30 text-cyan-400 px-2 rounded animate-pulse">V1.0 ALPHA</span>
+                <div onclick="showDetail('xinfeng')" class="glow-card p-5 rounded-xl cursor-pointer hover:border-yellow-400 border-l-2 border-yellow-500 group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xs font-bold text-gray-300">新豐分部</h3>
+                        <span class="text-[8px] text-yellow-500 font-bold">佔比 36%</span>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
-                            <div class="progress-circle" style="--p: 85%">
-                                <span class="progress-inner">85%</span>
-                            </div>
-                            <div>
-                                <p class="text-xs font-bold text-gray-200 uppercase">神盾雷達核心 (Sleeper Mode)</p>
-                                <p class="text-[9px] text-green-400 mt-1">● API 接口調試完成，進入穩定性測試</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
-                            <div class="progress-circle" style="--p: 40%">
-                                <span class="progress-inner">40%</span>
-                            </div>
-                            <div>
-                                <p class="text-xs font-bold text-gray-200 uppercase">遊戲化與積分系統 (Gamification)</p>
-                                <p class="text-[9px] text-yellow-400 mt-1">● Supabase 資料庫架構規劃中</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
-                            <div class="progress-circle" style="--p: 20%">
-                                <span class="progress-inner">20%</span>
-                            </div>
-                            <div>
-                                <p class="text-xs font-bold text-gray-200 uppercase">3/14 QR 領券系統</p>
-                                <p class="text-[9px] text-red-400 mt-1">● 邏輯發想中，待 UI 組件確認</p>
-                            </div>
-                        </div>
-                    </div>
+                    <p class="text-2xl font-black cyber-font text-yellow-500 group-hover:text-yellow-400 transition-colors">$26,385</p>
+                    <p class="text-[9px] text-gray-600 mt-2 italic">查看深度數據 ➔</p>
                 </div>
-
+                <div onclick="showDetail('online')" class="glow-card p-5 rounded-xl cursor-pointer hover:border-purple-400 border-l-2 border-purple-500 group border-purple-900/30">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xs font-bold text-gray-300">線上官方商城</h3>
+                        <span class="text-[8px] text-purple-400 font-bold">偵查中</span>
+                    </div>
+                    <p class="text-2xl font-black cyber-font text-purple-500 group-hover:text-purple-400 transition-colors">$0</p>
+                    <p class="text-[9px] text-gray-600 mt-2 italic">查看深度數據 ➔</p>
+                </div>
             </div>
 
-            <!-- 戰略模組 -->
+            <!-- 人員與開發雙看板 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- 人員管理 -->
+                <div class="glow-card p-5 rounded-xl">
+                    <h2 class="cyber-font text-[10px] text-sky-500 tracking-[0.5em] uppercase mb-6 px-2">人員戰力佈署 (Unit Management)</h2>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div onclick="showUnit('ade')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-sky-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">👔</span><p class="text-[10px] font-bold">阿德</p>
+                        </div>
+                        <div onclick="showUnit('sy')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-green-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">⚡</span><p class="text-[10px] font-bold">順淵</p>
+                        </div>
+                        <div onclick="showUnit('jz')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-purple-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">🔥</span><p class="text-[10px] font-bold">家志</p>
+                        </div>
+                        <div onclick="showUnit('jt')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-orange-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">🎯</span><p class="text-[10px] font-bold">景棠</p>
+                        </div>
+                        <div onclick="showUnit('yz')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-cyan-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">🎬</span><p class="text-[10px] font-bold">柚子</p>
+                        </div>
+                        <div onclick="showUnit('bl')" class="bg-slate-900/50 p-3 rounded-lg cursor-pointer hover:border-red-500 border border-slate-800 text-center transition-colors">
+                            <span class="text-lg block mb-1">👀</span><p class="text-[10px] font-bold">柏霖</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- App開發 -->
+                <div class="glow-card p-5 rounded-xl border-r-4 border-cyan-500">
+                    <h2 class="cyber-font text-[10px] text-cyan-400 tracking-[0.5em] uppercase mb-6 px-2">GyberPass 開發實驗室 (Dev Lab)</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
+                            <div class="progress-circle" style="--p: 85%"><span class="progress-inner">85%</span></div>
+                            <div><p class="text-xs font-bold text-gray-200">神盾雷達核心</p><p class="text-[9px] text-green-400">● 穩定性測試中</p></div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-slate-900/50 p-3 rounded border border-slate-800">
+                            <div class="progress-circle" style="--p: 40%"><span class="progress-inner">40%</span></div>
+                            <div><p class="text-xs font-bold text-gray-200">遊戲化與積分</p><p class="text-[9px] text-yellow-400">● 架構規劃中</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 戰略模組矩陣 -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div class="glow-card p-4 rounded-xl"><h3 class="text-[9px] font-bold text-sky-400 uppercase mb-4 tracking-widest">單位戰鬥雷達</h3><canvas id="radarChart"></canvas></div>
+                <div class="glow-card p-4 rounded-xl"><h3 class="text-[9px] font-bold text-sky-400 uppercase mb-4">單位戰鬥雷達</h3><canvas id="radarChart"></canvas></div>
                 <div class="glow-card p-4 rounded-xl flex flex-col items-center justify-center text-center">
                     <h3 class="text-[9px] font-bold text-orange-400 uppercase mb-2 w-full">廣告燃燒率 (ROAS)</h3>
                     <p class="text-4xl font-black cyber-font text-white">7.2</p>
                     <p class="text-[10px] text-green-400 font-bold mt-1 uppercase">引擎推進穩定</p>
                 </div>
                 <div class="glow-card p-4 rounded-xl space-y-4">
-                    <h3 class="text-[9px] font-bold text-purple-400 uppercase tracking-widest">軍火庫存監控</h3>
-                    <div><p class="text-[8px] text-gray-400 mb-1">TITAN VECTOR</p><div class="ammo-bar"><div class="ammo-fill bg-sky-500" style="width: 85%"></div></div></div>
-                    <div><p class="text-[8px] text-red-400 mb-1 font-bold">手套 [低庫存]</p><div class="ammo-bar"><div class="ammo-fill bg-red-500" style="width: 12%"></div></div></div>
+                    <h3 class="text-[9px] font-bold text-purple-400 uppercase">軍火庫存監控</h3>
+                    <div><p class="text-[8px] text-gray-400 mb-1 uppercase">Titan Vector</p><div class="ammo-bar"><div class="ammo-fill bg-sky-500" style="width: 85%"></div></div></div>
+                    <div><p class="text-[8px] text-red-400 mb-1 uppercase font-bold">防摔手套 [低]</p><div class="ammo-bar"><div class="ammo-fill bg-red-500" style="width: 12%"></div></div></div>
                 </div>
                 <div class="glow-card p-4 rounded-xl text-center flex flex-col justify-center">
                     <h3 class="text-[9px] font-bold text-green-400 uppercase mb-2 w-full">社群聲納</h3>
@@ -177,22 +172,12 @@
                     <p class="text-[10px] text-gray-500 mt-2">#飆鋒衣 #314發表</p>
                 </div>
             </div>
-
-            <!-- AI 戰略分析 -->
-            <div class="glow-card p-5 rounded-xl border-b-4 border-purple-500 mb-8">
-                <h3 class="cyber-font text-[9px] text-purple-400 mb-3 tracking-[0.2em] uppercase">歐文特助戰略日誌</h3>
-                <div id="ai-logs" class="space-y-2 text-[10px] text-gray-400">
-                    <p>● <span class="text-white font-bold">App 開發</span>：神盾雷達核心進度良好，建議優先處理 3/14 領券功能的 UI 對接。</p>
-                    <p>● <span class="text-yellow-400 font-bold">管理建議</span>：家志能力雷達在成交率表現突出，本週末可安排其負責竹北旗艦店的大單開發。</p>
-                </div>
-            </div>
         </div>
 
-        <!-- 子頁面區塊 -->
         <div id="sub-view" class="hidden fade-in">
             <button onclick="hideSubView()" class="mb-4 text-sky-400 text-[10px] font-bold cyber-font hover:text-white">◀ 返回戰術總部</button>
             <div class="glow-card p-6 md:p-10 rounded-xl border-t-4 border-sky-500" id="sub-view-container">
-                <h2 id="sub-view-title" class="text-3xl font-black cyber-font mb-4 uppercase">---</h2>
+                <h2 id="sub-view-title" class="text-3xl font-black cyber-font mb-8 uppercase">---</h2>
                 <div id="sub-view-body"></div>
             </div>
         </div>
@@ -222,7 +207,6 @@
             sessionStorage.setItem('dracula_v5_auth', 'true');
             initRadar();
         }
-
         if (sessionStorage.getItem('dracula_v5_auth') === 'true') unlock();
 
         function initRadar() {
@@ -240,24 +224,12 @@
         }
 
         const unitData = {
-            ade: { name: "阿德 [Store Manager]", role: "👔 雙門市店長", color: "#0ea5e9", 
-                   content: "負責全店營運調度、SOP 執行監督、庫存管理。確保兩店門市維持德谷拉品牌標準。",
-                   focus: "1. 門市整潔與檢核表達成度。<br>2. 員工紀律與執行力監控。<br>3. 庫存調撥與盤點準確率。" },
-            sy: { name: "順淵 [Assistant]", role: "⚡ 儲位副店長", color: "#22c55e",
-                  content: "執行力中樞。負責各店業績目標達成、排班優化、並在學長不在時擔任臨時指揮官。",
-                  focus: "1. 每日業績配速監控。<br>2. 3/14 活動門市現場執行清單。<br>3. 門市新人培訓進度。" },
-            jz: { name: "家志 [Sales]", role: "🔥 首席銷售戰士", color: "#a855f7",
-                  content: "前線第一線銷售。負責大客戶維繫、深度商品解說。具備極強的轉換能力與親和力。",
-                  focus: "1. 成交轉化率與客單價。<br>2. 售後滿意度與顧客再訪率。<br>3. 新品市場反應回饋。" },
-            jt: { name: "景棠 [Marketing]", role: "🎯 行銷戰略長", color: "#f97316",
-                  content: "負責品牌整體行銷活動企劃、官方網站營運、廣告投放監控與流量成長戰略。",
-                  focus: "1. 廣告 ROAS 達成率。<br>2. 官網轉單轉化路徑分析。<br>3. 社群活動導流效率。" },
-            yz: { name: "柚子 [Media]", role: "🎬 影音媒體官", color: "#06b6d4",
-                  content: "影音內容產線核心。負責 TikTok/IG 影片拍攝、剪輯、社群客服回覆與視覺美編。",
-                  focus: "1. 影片發片頻率與腳本撰寫進度。<br>2. 社群留言回覆時效與情緒。<br>3. 3/14 四週年影片產出期程。" },
-            bl: { name: "柏霖 [Monitor]", role: "👀 門市戰士", color: "#ef4444",
-                  content: "門市庶務、商品陳列、基礎接待。主要負責維持店面運作之基礎細節。",
-                  focus: "1. 勤惰狀況與出勤穩定度。<br>2. 工作日誌填寫真實度。<br>3. 執行細節落實情況。" }
+            ade: { name: "阿德 [Manager]", content: "全店營運調度、SOP 執行監督、庫存管理。", focus: "門市整潔達成度、員工紀律、庫存調撥。" },
+            sy: { name: "順淵 [Assistant]", content: "執行力中樞、業績目標達成、排班優化。", focus: "每日業績配速、3/14 現場執行、新人培訓。" },
+            jz: { name: "家志 [Sales]", content: "首席銷售、大客戶維繫、商品深度解說。", focus: "成交轉化率、客單價、售後滿意度。" },
+            jt: { name: "景棠 [Marketing]", content: "行銷活動企劃、網站營運、廣告投放戰略。", focus: "廣告 ROAS、官網轉單率、社群導流效率。" },
+            yz: { name: "柚子 [Media]", content: "影片拍攝剪輯、社群客服、視覺美編。", focus: "發片頻率、留言回覆時效、3/14 影片進度。" },
+            bl: { name: "柏霖 [Monitor]", content: "門市庶務、商品陳列、基礎接待。", focus: "出勤穩定度、工作日誌真實度、執行落實。" }
         };
 
         function showUnit(id) {
@@ -265,18 +237,12 @@
             document.getElementById('sub-view').classList.remove('hidden');
             const d = unitData[id];
             document.getElementById('sub-view-title').innerText = d.name;
-            document.getElementById('sub-view-title').style.color = d.color;
-            document.getElementById('sub-view-container').style.borderColor = d.color;
+            document.getElementById('sub-view-title').style.color = "#0ea5e9";
+            document.getElementById('sub-view-container').style.borderColor = "#0ea5e9";
             document.getElementById('sub-view-body').innerHTML = `
-                <div class="space-y-8">
-                    <div class="glow-card p-6 rounded-xl border-l-4" style="border-color:${d.color}">
-                        <h4 class="text-xs font-bold text-gray-400 uppercase mb-4 tracking-widest">核心工作內容 (Core Responsibilities)</h4>
-                        <p class="text-sm text-white leading-relaxed">${d.content}</p>
-                    </div>
-                    <div class="glow-card p-6 rounded-xl border-l-4 border-yellow-500 bg-yellow-900/10">
-                        <h4 class="text-xs font-bold text-yellow-500 uppercase mb-4 tracking-widest">⚠️ 諮詢與監控重點 (Consulting Focus)</h4>
-                        <p class="text-sm text-gray-200 leading-loose">${d.focus}</p>
-                    </div>
+                <div class="space-y-6">
+                    <div class="bg-slate-900/50 p-6 rounded border border-slate-800"><h4 class="text-xs font-bold text-sky-400 mb-3 uppercase tracking-widest">核心工作內容</h4><p class="text-sm text-white leading-relaxed">${d.content}</p></div>
+                    <div class="bg-yellow-900/10 p-6 rounded border border-yellow-500/30"><h4 class="text-xs font-bold text-yellow-500 mb-3 uppercase tracking-widest">諮詢監控重點</h4><p class="text-sm text-gray-200 leading-loose">${d.focus}</p></div>
                 </div>
             `;
         }
@@ -285,25 +251,27 @@
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('sub-view').classList.remove('hidden');
             const dataMap = {
-                zhubei: { name: "竹北旗艦部", total: "$10.04M", ratio: "60:40", growth: "+18.2%", color: "#0ea5e9" },
-                xinfeng: { name: "新豐分部", total: "$5.57M", ratio: "45:55", growth: "+8.5%", color: "#eab308" },
-                online: { name: "線上官網 (91APP)", total: "數據串接中", ratio: "100:0", growth: "N/A", color: "#a855f7" }
+                zhubei: { name: "竹北旗艦部", total: "$10.04M", ratio: "60:40", growth: "+18.2%", color: "#0ea5e9", history: [60,80,50,90,75,85] },
+                xinfeng: { name: "新豐分部", total: "$5.57M", ratio: "45:55", growth: "+8.5%", color: "#eab308", history: [40,50,30,45,55,48] },
+                online: { name: "線上官網", total: "偵查中", ratio: "100:0", growth: "N/A", color: "#a855f7", history: [0,0,0,0,0,0] }
             };
             const d = dataMap[id];
             document.getElementById('sub-view-title').innerText = d.name;
             document.getElementById('sub-view-title').style.color = d.color;
             document.getElementById('sub-view-container').style.borderColor = d.color;
             document.getElementById('sub-view-body').innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">歷年總累積營收</p><p class="text-2xl font-black cyber-font text-white">${d.total}</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">累積營收</p><p class="text-2xl font-black cyber-font text-white">${d.total}</p></div>
                     <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">支付結構</p><p class="text-2xl font-black cyber-font text-white">${d.ratio}</p></div>
-                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">週期成長率</p><p class="text-2xl font-black cyber-font text-green-400">${d.growth}</p></div>
+                    <div class="bg-slate-900 p-5 rounded border border-slate-800"><p class="text-[8px] text-gray-500 uppercase mb-1">成長率</p><p class="text-2xl font-black cyber-font text-green-400">${d.growth}</p></div>
+                </div>
+                <div class="h-48 flex items-end justify-between gap-3 border-b border-slate-800 pb-2">
+                    ${d.history.map(h => `<div class="bg-slate-800 w-full rounded-t relative"><div class="absolute bottom-0 w-full rounded-t opacity-80" style="height:${h}%; background-color:${d.color}; box-shadow:0 0 15px ${d.color}44;"></div></div>`).join('')}
                 </div>
             `;
         }
 
         function hideSubView() { document.getElementById('sub-view').classList.add('hidden'); document.getElementById('main-view').classList.remove('hidden'); }
-
         function tick() {
             const now = new Date();
             els.clock.innerText = now.getHours().toString().padStart(2,'0') + ":" + now.getMinutes().toString().padStart(2,'0');
